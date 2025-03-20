@@ -15,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Hubot_Sans } from 'next/font/google';
 
 interface DayData {
   date: string;
@@ -33,7 +34,10 @@ interface TradeHistoryProps {
   onYearChange?: (year: string) => void;
   currency?: string;
 }
-
+const hubotSans = Hubot_Sans({
+    variable: "--font-hubot-sans",
+    subsets: ["latin"],
+    })
 const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
   data,
   selectedYear,
@@ -414,8 +418,8 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     <Card className="bg-zinc-900 border border-gray-800 shadow-xl mb-6">
       <CardHeader className="pb-2">
         <div className="flex flex-wrap justify-between items-center gap-4">
-          <CardTitle className="text-xl text-white">
-            Histórico de Negociações {selectedYear && `(${selectedYear})`}
+          <CardTitle className="text-xl font-sans text-white">
+          <span className='text-xl font-sans text-yellow-400'>Histórico</span>   de Negociações {selectedYear && `(${selectedYear})`}
           </CardTitle>
           
           <div className="flex flex-wrap gap-2">

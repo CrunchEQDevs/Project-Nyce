@@ -134,7 +134,7 @@ const ImprovedCombinedChart = ({
     return (
       <Card className="bg-gray-900 border border-gray-800 shadow-xl">
         <CardHeader>
-          <CardTitle className="text-white">Visão Combinada: Preço e Volume</CardTitle>
+          <CardTitle className="text-yellow-400">Visão Combinada: Preço e Volume</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-64 text-gray-400">
@@ -149,8 +149,8 @@ const ImprovedCombinedChart = ({
     <Card className="bg-zinc-900 border border-gray-800 shadow-xl">
       <CardHeader className="pb-0">
         <div className="flex justify-between items-center">
-          <CardTitle className="text-xl text-white">
-            Visão Combinada: Preço e Volume {selectedYear && `(${selectedYear})`}
+          <CardTitle className="text-xl font-sans text-white">
+           <span className='text-xl font-sans text-yellow-400'>Visão Combinada: </span> Preço e Volume {selectedYear && `(${selectedYear})`}
           </CardTitle>
           <div className="flex space-x-3">
             {onYearChange && (
@@ -246,7 +246,7 @@ const ImprovedCombinedChart = ({
               <Legend 
                 verticalAlign="top" 
                 height={36}
-                wrapperStyle={{ paddingTop: 20 }}
+                wrapperStyle={{ paddingTop: 10 }}
               />
               
               <Bar 

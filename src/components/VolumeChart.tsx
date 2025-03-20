@@ -175,7 +175,7 @@ const RefinedVolumeChart: React.FC<RefinedVolumeChartProps> = ({
       <CardHeader className="pb-0">
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl text-white">
-            Volume de Negociação por Data {selectedYear && `(${selectedYear})`}
+          Volume  <span className='text-yellow-400'> de Negociação</span>  por Data{selectedYear && `(${selectedYear})`}
           </CardTitle>
           <div className="flex space-x-3">
             {onYearChange && (

@@ -51,17 +51,38 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
   const formatPrice = (price: number): string => `${price.toFixed(3)} ${currency}`;
   const formatVolume = (volume: number): string => volume.toLocaleString();
   
-  // Processar dados recebidos
   useEffect(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
       console.warn("Dados inválidos recebidos no RefinedPriceChart:", data);
       setProcessedData([]);
       return;
     }
-
+  
     try {
-      // Se os dados já estiverem processados, apenas copiamos
-      setProcessedData([...data]);
+      // Processar os dados garantindo que 'date' seja um objeto Date
+      const processed = data.map(item => {
+        // Se o item.date não for um objeto Date, tentamos converter
+        const dateObject = item.date instanceof Date 
+          ? item.date 
+          : new Date(item.traded_datetime || item.date);
+        
+        return {
+          ...item,
+          date: dateObject,
+          // Garantir que formattedDate seja sempre uma string
+          formattedDate: item.formattedDate || 
+            `${dateObject.getDate().toString().padStart(2, '0')}/${(dateObject.getMonth() + 1).toString().padStart(2, '0')}/${dateObject.getFullYear()}`
+        };
+      });
+      
+      setProcessedData(processed);
+      
+      // Log para diagnóstico
+      console.log("Dados processados:", {
+        total: processed.length,
+        primeiro: processed[0],
+        último: processed[processed.length - 1]
+      });
     } catch (error) {
       console.error("Erro ao processar dados no RefinedPriceChart:", error);
       setProcessedData([]);
@@ -87,36 +108,42 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
       ? Math.max(...processedData.map(item => item.price))
       : 0;
   
-  // Filtrar dados com base no período selecionado
-  const filteredData = processedData.filter(item => {
-    if (dataRange === 'all') return true;
-    
-    const itemDate = new Date(item.date);
-    const now = new Date();
-    
-    if (dataRange === 'week') {
-      // Últimos 7 dias
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setDate(now.getDate() - 7);
-      return itemDate >= oneWeekAgo;
-    }
-    
-    if (dataRange === 'month') {
-      // Último mês
-      const oneMonthAgo = new Date();
-      oneMonthAgo.setMonth(now.getMonth() - 1);
-      return itemDate >= oneMonthAgo;
-    }
-    
-    if (dataRange === 'quarter') {
-      // Último trimestre
-      const oneQuarterAgo = new Date();
-      oneQuarterAgo.setMonth(now.getMonth() - 3);
-      return itemDate >= oneQuarterAgo;
-    }
-    
-    return true;
-  });
+ // Encontrar a data mais recente no conjunto de dados
+const mostRecentDate = processedData.length > 0 
+? new Date(Math.max(...processedData.map(item => 
+    item.date instanceof Date ? item.date.getTime() : new Date(item.date).getTime())))
+: new Date();
+
+// Filtrar dados com base no período selecionado, relativo à data mais recente
+const filteredData = processedData.filter(item => {
+if (dataRange === 'all') return true;
+
+// Garantir que temos um objeto Date para comparação
+const itemDate = item.date instanceof Date ? item.date : new Date(item.date);
+
+if (dataRange === 'week') {
+  // Últimos 7 dias a partir da data mais recente
+  const oneWeekAgo = new Date(mostRecentDate);
+  oneWeekAgo.setDate(mostRecentDate.getDate() - 7);
+  return itemDate >= oneWeekAgo;
+}
+
+if (dataRange === 'month') {
+  // Último mês a partir da data mais recente
+  const oneMonthAgo = new Date(mostRecentDate);
+  oneMonthAgo.setMonth(mostRecentDate.getMonth() - 1);
+  return itemDate >= oneMonthAgo;
+}
+
+if (dataRange === 'quarter') {
+  // Último trimestre a partir da data mais recente
+  const oneQuarterAgo = new Date(mostRecentDate);
+  oneQuarterAgo.setMonth(mostRecentDate.getMonth() - 3);
+  return itemDate >= oneQuarterAgo;
+}
+
+return true;
+});
   
   // Tooltip personalizado
   const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
@@ -150,13 +177,15 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
   // Se não houver dados, mostrar uma mensagem
   if (filteredData.length === 0) {
     return (
-      <Card className="bg-[#0F1629] border border-gray-800 shadow-xl">
+      <Card className="bg-zinc-900 border border-gray-800 shadow-xl">
         <CardHeader>
-          <CardTitle className="text-white">Variação de Preço ao Longo do Tempo</CardTitle>
+        <CardTitle className="text-xl text-white">
+          <span className='text-yellow-400'>Variação de Preço</span>   ao Longo do Tempo {selectedYear && `(${selectedYear})`}
+        </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-64 text-gray-400">
-            <p>Nenhum dado disponível para o período selecionado. Verifique se os dados estão sendo passados corretamente.</p>
+            <p>Nenhum dado disponível para o período selecionado. Tente novamente mais tarde.</p>
           </div>
         </CardContent>
       </Card>
@@ -197,7 +226,7 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
       <CardHeader className="pb-0">
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl text-white">
-            Variação de Preço ao Longo do Tempo {selectedYear && `(${selectedYear})`}
+          <span className='text-yellow-400'>Variação de Preço</span>   ao Longo do Tempo {selectedYear && `(${selectedYear})`}
           </CardTitle>
           <div className="flex space-x-3">
             {onYearChange && (
