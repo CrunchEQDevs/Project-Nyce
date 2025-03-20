@@ -16,7 +16,7 @@ const hubotSans = Hubot_Sans({
 export default function AppFooter() {
   return (
     <footer className="bg-black text-white py-2 bottom-0 w-full">
-      <div className="container mx-auto px-9 border-t border-gray-200 mt-4 py-4">
+      <div className="container mx-auto px-9 border-t border-[#FFFFFF33] mt-4 py-4">
         {/* Primeira linha: H1 e Links lado a lado */}
         <div className="flex justify-between items-start">
           <h1 className="text-3xl">
@@ -81,7 +81,7 @@ export default function AppFooter() {
     </div>
       </div>
     </div>
-      <div className="container px-9 mx-auto border-t border-gray-200 mt-4 py-4">
+      <div className="container px-9 mx-auto border-t border-[#FFFFFF33] mt-4 py-4">
         <div className="flex flex-row justify-between items-center">
           <h1 className="text-6xl font-bold">
             <span className="text-yellow-400">N</span>

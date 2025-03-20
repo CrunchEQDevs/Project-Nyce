@@ -1,0 +1,587 @@
+{
+    "pageProps": {
+        "trades": [
+            {
+                "id": "2024-05-28T15:29:19Z",
+                "price": 0.33,
+                "volume": 372855,
+                "traded_datetime": "2024-05-28T15:29:19Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-22T07:09:16Z",
+                "price": 0.3,
+                "volume": 2000000,
+                "traded_datetime": "2024-05-22T07:09:16Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-22T07:09:04Z",
+                "price": 0.325,
+                "volume": 2000000,
+                "traded_datetime": "2024-05-22T07:09:04Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-07T14:02:46Z",
+                "price": 0.35,
+                "volume": 150000,
+                "traded_datetime": "2024-05-07T14:02:46Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-07T14:02:41Z",
+                "price": 0.35,
+                "volume": 150000,
+                "traded_datetime": "2024-05-07T14:02:41Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-07T14:01:26Z",
+                "price": 0.35,
+                "volume": 130000,
+                "traded_datetime": "2024-05-07T14:01:26Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-07T14:01:21Z",
+                "price": 0.35,
+                "volume": 130000,
+                "traded_datetime": "2024-05-07T14:01:21Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-07T08:35:59Z",
+                "price": 0.34,
+                "volume": 250000,
+                "traded_datetime": "2024-05-07T08:35:59Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-07T08:22:40Z",
+                "price": 0.32,
+                "volume": 500000,
+                "traded_datetime": "2024-05-07T08:22:40Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-03T14:56:39Z",
+                "price": 0.315,
+                "volume": 2000000,
+                "traded_datetime": "2024-05-03T14:56:39Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-03T14:54:36Z",
+                "price": 0.315,
+                "volume": 1000000,
+                "traded_datetime": "2024-05-03T14:54:36Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-03T14:48:51Z",
+                "price": 0.338,
+                "volume": 3000000,
+                "traded_datetime": "2024-05-03T14:48:51Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-05-02T08:23:35Z",
+                "price": 0.34,
+                "volume": 873617,
+                "traded_datetime": "2024-05-02T08:23:35Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-26T15:24:32Z",
+                "price": 0.3,
+                "volume": 310810,
+                "traded_datetime": "2024-04-26T15:24:32Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-17T07:09:43Z",
+                "price": 0.38,
+                "volume": 257894,
+                "traded_datetime": "2024-04-17T07:09:43Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-16T12:38:24Z",
+                "price": 0.37,
+                "volume": 310810,
+                "traded_datetime": "2024-04-16T12:38:24Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-16T08:29:41Z",
+                "price": 0.38,
+                "volume": 257894,
+                "traded_datetime": "2024-04-16T08:29:41Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-16T08:03:46Z",
+                "price": 0.4,
+                "volume": 130000,
+                "traded_datetime": "2024-04-16T08:03:46Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-16T08:03:35Z",
+                "price": 0.37,
+                "volume": 1500000,
+                "traded_datetime": "2024-04-16T08:03:35Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-16T08:03:11Z",
+                "price": 0.4,
+                "volume": 130000,
+                "traded_datetime": "2024-04-16T08:03:11Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-16T08:03:03Z",
+                "price": 0.4,
+                "volume": 130000,
+                "traded_datetime": "2024-04-16T08:03:03Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-15T08:32:16Z",
+                "price": 0.5,
+                "volume": 150000,
+                "traded_datetime": "2024-04-15T08:32:16Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-15T07:08:14Z",
+                "price": 0.69,
+                "volume": 573971,
+                "traded_datetime": "2024-04-15T07:08:14Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-12T12:40:34Z",
+                "price": 0.69,
+                "volume": 430478,
+                "traded_datetime": "2024-04-12T12:40:34Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-11T15:08:51Z",
+                "price": 0.69,
+                "volume": 150000,
+                "traded_datetime": "2024-04-11T15:08:51Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-11T14:01:17Z",
+                "price": 0.35,
+                "volume": 1000000,
+                "traded_datetime": "2024-04-11T14:01:17Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-09T10:43:09Z",
+                "price": 0.77,
+                "volume": 1000000,
+                "traded_datetime": "2024-04-09T10:43:09Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-09T10:22:14Z",
+                "price": 0.79,
+                "volume": 1800000,
+                "traded_datetime": "2024-04-09T10:22:14Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-09T09:22:33Z",
+                "price": 0.375,
+                "volume": 1000000,
+                "traded_datetime": "2024-04-09T09:22:33Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-09T09:22:24Z",
+                "price": 0.35,
+                "volume": 800000,
+                "traded_datetime": "2024-04-09T09:22:24Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-09T08:33:07Z",
+                "price": 0.35,
+                "volume": 800000,
+                "traded_datetime": "2024-04-09T08:33:07Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-08T11:54:08Z",
+                "price": 0.6,
+                "volume": 250000,
+                "traded_datetime": "2024-04-08T11:54:08Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-05T15:18:39Z",
+                "price": 0.6,
+                "volume": 250000,
+                "traded_datetime": "2024-04-05T15:18:39Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-05T14:54:24Z",
+                "price": 0.7,
+                "volume": 500000,
+                "traded_datetime": "2024-04-05T14:54:24Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-04-03T11:59:21Z",
+                "price": 0.6,
+                "volume": 250000,
+                "traded_datetime": "2024-04-03T11:59:21Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-20T12:54:39Z",
+                "price": 0.825,
+                "volume": 1700000,
+                "traded_datetime": "2024-03-20T12:54:39Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-20T12:17:36Z",
+                "price": 0.85,
+                "volume": 2100000,
+                "traded_datetime": "2024-03-20T12:17:36Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-19T16:29:01Z",
+                "price": 0.825,
+                "volume": 600000,
+                "traded_datetime": "2024-03-19T16:29:01Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-19T11:36:32Z",
+                "price": 0.85,
+                "volume": 817647,
+                "traded_datetime": "2024-03-19T11:36:32Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-18T10:05:09Z",
+                "price": 0.625,
+                "volume": 1400000,
+                "traded_datetime": "2024-03-18T10:05:09Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-18T09:53:41Z",
+                "price": 0.65,
+                "volume": 1899999,
+                "traded_datetime": "2024-03-18T09:53:41Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-13T14:39:17Z",
+                "price": 0.501,
+                "volume": 500,
+                "traded_datetime": "2024-03-13T14:39:17Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-13T14:05:36Z",
+                "price": 0.51,
+                "volume": 10000,
+                "traded_datetime": "2024-03-13T14:05:36Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-07T09:05:58Z",
+                "price": 0.55,
+                "volume": 41166,
+                "traded_datetime": "2024-03-07T09:05:58Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-03-06T14:00:56Z",
+                "price": 0.4,
+                "volume": 1000000,
+                "traded_datetime": "2024-03-06T14:00:56Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-14T11:53:04Z",
+                "price": 0.4,
+                "volume": 700000,
+                "traded_datetime": "2024-02-14T11:53:04Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-08T08:56:40Z",
+                "price": 0.51,
+                "volume": 250000,
+                "traded_datetime": "2024-02-08T08:56:40Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-07T10:09:23Z",
+                "price": 0.51,
+                "volume": 250000,
+                "traded_datetime": "2024-02-07T10:09:23Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-06T09:20:42Z",
+                "price": 0.51,
+                "volume": 250000,
+                "traded_datetime": "2024-02-06T09:20:42Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-05T16:19:42Z",
+                "price": 0.7,
+                "volume": 59700,
+                "traded_datetime": "2024-02-05T16:19:42Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-05T16:17:50Z",
+                "price": 0.7,
+                "volume": 199700,
+                "traded_datetime": "2024-02-05T16:17:50Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-05T09:09:43Z",
+                "price": 0.51,
+                "volume": 250000,
+                "traded_datetime": "2024-02-05T09:09:43Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-01T13:36:35Z",
+                "price": 0.725,
+                "volume": 19700,
+                "traded_datetime": "2024-02-01T13:36:35Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-02-01T12:23:08Z",
+                "price": 0.65,
+                "volume": 49700,
+                "traded_datetime": "2024-02-01T12:23:08Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-31T15:38:12Z",
+                "price": 0.75,
+                "volume": 666666,
+                "traded_datetime": "2024-01-31T15:38:12Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-31T13:48:52Z",
+                "price": 0.725,
+                "volume": 84200,
+                "traded_datetime": "2024-01-31T13:48:52Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-31T12:45:43Z",
+                "price": 0.65,
+                "volume": 79200,
+                "traded_datetime": "2024-01-31T12:45:43Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-26T11:29:52Z",
+                "price": 0.5,
+                "volume": 250000,
+                "traded_datetime": "2024-01-26T11:29:52Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-25T13:12:16Z",
+                "price": 0.5,
+                "volume": 250000,
+                "traded_datetime": "2024-01-25T13:12:16Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-12T09:48:39Z",
+                "price": 0.5,
+                "volume": 150000,
+                "traded_datetime": "2024-01-12T09:48:39Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-11T10:22:08Z",
+                "price": 0.5,
+                "volume": 150000,
+                "traded_datetime": "2024-01-11T10:22:08Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-10T11:40:21Z",
+                "price": 0.5,
+                "volume": 250000,
+                "traded_datetime": "2024-01-10T11:40:21Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-05T16:21:49Z",
+                "price": 0.75,
+                "volume": 500000,
+                "traded_datetime": "2024-01-05T16:21:49Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            },
+            {
+                "id": "2024-01-05T16:17:39Z",
+                "price": 0.78,
+                "volume": 500000,
+                "traded_datetime": "2024-01-05T16:17:39Z",
+                "currency": "GBX",
+                "isin": "GB00BMD0WG01",
+                "type": "Trades"
+            }
+        ],
+        "year": 2024,
+        "month": null,
+        "symbol": "CXS",
+        "currency": "GBX"
+    },
+    "__N_SSP": true
+}

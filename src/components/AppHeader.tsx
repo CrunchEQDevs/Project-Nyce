@@ -46,7 +46,7 @@ export default function AppHeader() {
             <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
               About
             </Link>
-            <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
+            <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Stock
             </Link>
           </div>
@@ -76,7 +76,7 @@ export default function AppHeader() {
                   <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
                     About
                   </Link>
-                  <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                  <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
                     Stock
                   </Link>
                   <Link href={"#"} className="bg-white text-black hover:bg-gray-200 rounded-full px-4 py-2 text-sm text-center mt-4">
