@@ -49,10 +49,10 @@ export default function AppHeader() {
             <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
               Team
             </Link>
-            <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+            {/* <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Stock
-            </Link>
-            <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+            </Link> */}
+            <Link href={"/"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Investors
             </Link>
             <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">

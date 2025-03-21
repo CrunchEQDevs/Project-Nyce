@@ -107,6 +107,7 @@ const teamMembers: TeamMemberData[] = [
     }
 
 ];
+
 export default function About() {
     const partners = useRef(null);
 
