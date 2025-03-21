@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useState } from 'react';
+'use client'
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, ArrowDown } from 'lucide-react';
@@ -39,6 +38,18 @@ const slugify = (text: string): string => {
 };
 
 export default function ProductsAndServices() {
+  const partners = useRef(null);
+
+  const scrollToSection = (ref) => {
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+
   // Animation variants for staggered card animations
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -143,6 +154,7 @@ export default function ProductsAndServices() {
     : productCards.filter(card => card.category === selectedCategory);
 
   return (
+    
     <div className={`${hubotSans.variable} bg-[#0E0E0E] w-full min-h-screen text-white p-6 md:p-8`}>
       {/* Header section with animations */}
       <motion.div 
@@ -159,29 +171,28 @@ export default function ProductsAndServices() {
         >
           Products & Services
         </motion.h1>
-        
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        >
-          <Link
-            href="#"
-            className="bg-zinc-700 hover:bg-zinc-600 text-white rounded-full px-4 py-2 flex items-center justify-center gap-2 transition-colors text-base mb-8"
-          >
-            <span>Go to Partners</span>
-            <motion.div
-              animate={{ y: [0, 3, 0] }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 1.5,
-                ease: "easeInOut"
+            <motion.button
+              onClick={() => scrollToSection(partners)}
+              className="bg-zinc-700 hover:bg-zinc-600 text-white rounded-full px-8 py-3 flex items-center justify-center space-x-2 transition-colors"
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: "#4B5563" // Slightly lighter gray on hover
               }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <ArrowDown size={16} />
-            </motion.div>
-          </Link>
-        </motion.div>
+              <span>Our Partners</span>
+              <motion.div
+                animate={{ y: [0, 5, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 1.5,
+                  ease: "easeInOut"
+                }}
+              >
+                <ArrowDown size={18} />
+              </motion.div>
+            </motion.button>
       </motion.div>
 
       {/* Filter dropdown with animations */}
@@ -221,6 +232,7 @@ export default function ProductsAndServices() {
 
       {/* Card grid with staggered animations */}
       <motion.div 
+      ref={partners}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         variants={containerVariants}
         initial="hidden"
