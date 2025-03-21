@@ -203,25 +203,6 @@ const TradeDashboard = () => {
         
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-white">{stats?.symbol || 'CXS'} - Análise de Negociações</h1>
-          
-          <div className="flex items-center">
-            <span className="text-gray-300 mr-2">Ano:</span>
-            <Select 
-              value={selectedYear} 
-              onValueChange={(value) => {
-                setLoading(true);
-                setSelectedYear(value);
-              }}
-            >
-              <SelectTrigger className="w-[90px] h-8 bg-[#222222] border-gray-700 text-white">
-                <SelectValue placeholder="Ano" />
-              </SelectTrigger>
-              <SelectContent className="bg-[#222222] border-gray-700 text-white">
-                <SelectItem value="2025">2025</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
         
         {/* Stat Cards */}
