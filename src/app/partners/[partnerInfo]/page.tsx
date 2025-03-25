@@ -54,7 +54,6 @@ const partners: {[key: string]: Partner} = {
     logo: "bitblox",
     category: "Global Payment Solutions",
     description: "Bitblox creates innovative and engaging crypto-price-based games for operators that deliver an entertaining experience unlike any other to its users. Bitblox's flagship product is the Up or Down, a simple crypto game based on the live price of Bitcoin.",
-    slug: "bitblox"
   },
  "flashbet": {
     id: 5,
@@ -62,7 +61,6 @@ const partners: {[key: string]: Partner} = {
     logo: "flashbet",
     category: "Lottery",
     description: "FlashBET is a patented and unique betting technology designed for the betting and gaming industry. It offers a distinct user experience by combining accumulator betting with lottery-style betting using the innovative Bet-Wheel - making it an ideal product to engage sports bettors.",
-    slug: "flashbet"
   },
   "astroplay": {
     id: 6,
@@ -77,7 +75,6 @@ const partners: {[key: string]: Partner} = {
     logo: "atlas",
     category: "Data & Analytics",
     description: "Atlas is a data and analytics platform that provides operators with the tools they need to make informed decisions. With a focus on data visualization and predictive analytics, Atlas helps operators understand player behavior and optimize their business.",
-    slug: "atlas"
   }
 };
 
