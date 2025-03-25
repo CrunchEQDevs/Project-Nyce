@@ -1,16 +1,19 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ArrowDown } from 'lucide-react';
+import { ChevronDown, ArrowDown, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Hubot_Sans } from 'next/font/google';
 
 const hubotSans = Hubot_Sans({
@@ -27,41 +30,119 @@ const logoMap = {
   atlas: '/atlas.png'
 };
 
-// Helper function to generate URL-friendly slugs
-const slugify = (text: string): string => {
-  return text.toLowerCase()
-    .replace(/\s+/g, '-')        // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
-    .replace(/\-\-+/g, '-')      // Replace multiple - with single -
-    .replace(/^-+/, '')          // Trim - from start of text
-    .replace(/-+$/, '');         // Trim - from end of text
-};
+// Product card data with assigned categories
+const productCards = [
+  {
+    id: 1,
+    title: "Turnkey/White-label Platforms",
+    logo: null,
+    category: "Enterprise",
+    description: "We represent a number of industry-leading iGaming platforms, and are able to identify the ideal solution to fit your operational needs. This makes NYCE a game-changing partner to kickstart your brand. Talk to us to discuss your requirements.",
+    slug: "turnkey-white-label-platforms"
+  },
+  {
+    id: 2,
+    title: "Summus Games",
+    logo: "summus",
+    category: "iGaming & Sports Betting",
+    description: "Combining Casino, betting and lottery expertise to create completely new and exciting games that bring something new to an otherwise static marketplace. As well as game content, Summus also has an aggregator with unique games - perfect for Operators looking to expand their product offering.",
+    slug: "summus"
+  },
+  {
+    id: 3,
+    title: "BETER",
+    logo: "beter",
+    category: "iGaming & Sports Betting",
+    description: "BETER is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.",
+    slug: "beter"
+  },
+  {
+    id: 4,
+    title: "Bitblox",
+    logo: "bitblox",
+    category: "Global Payment Solutions",
+    description: "Bitblox creates innovative and engaging crypto-price-based games for operators that deliver an entertaining experience unlike any other to its users. Bitblox's flagship product is the Up or Down, a simple crypto game based on the live price of Bitcoin.",
+    slug: "bitblox"
+  },
+  {
+    id: 5,
+    title: "FlashBET",
+    logo: "flashbet",
+    category: "Lottery",
+    description: "FlashBET is a patented and unique betting technology designed for the betting and gaming industry. It offers a distinct user experience by combining accumulator betting with lottery-style betting using the innovative Bet-Wheel - making it an ideal product to engage sports bettors.",
+    slug: "flashbet"
+  },
+  {
+    id: 6,
+    title: "Astro Play",
+    logo: "astroplay",
+    category: "Acquisition & Retention",
+    description: "Astro Play, a leading gaming aggregator, brings years of industry expertise to enhance online casinos. With cutting-edge technology, it offers superior products, promotions, and rapid response times, valuing partners and clients equally.",
+    slug: "astroplay"
+  },
+  {
+    id: 7,
+    title: "Atlas",
+    logo: "atlas",
+    category: "Data & Analytics",
+    description: "Atlas is a data and analytics platform that provides operators with the tools they need to make informed decisions. With a focus on data visualization and predictive analytics, Atlas helps operators understand player behavior and optimize their business.",
+    slug: "atlas"
+  }
+];
 
-export default function ProductsAndServices() {
-  const partners = useRef(null);
+// Extract all unique categories
+const categories = [
+  "All",
+  "iGaming & Sports Betting",
+  "Land-Based Casinos",
+  "Acquisition & Retention",
+  "Lottery",
+  "Global Payment Solutions",
+  "Enterprise",
+  "Data & Analytics"
+];
 
-  const scrollToSection = (ref) => {
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+// Features for filtering
+const features = [
+  "Feature 1",
+  "Feature 2",
+  "Feature 3",
+  "Feature 4",
+  "Feature 5",
+  "Feature 6",
+  "Feature 7",
+  "Feature 8",
+  "Feature 9",
+  "Feature 10"
+];
+
+export default function ProductsMarketplace() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSort, setSelectedSort] = useState("A-Z Descending");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState(productCards);
+
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.6 }
     }
   };
 
-
-  // Animation variants for staggered card animations
-  const containerVariants = {
+  const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1 // This creates the staggered effect
+        staggerChildren: 0.1
       }
     }
   };
 
-  const itemVariants = {
+  const itemAnimation = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -74,240 +155,248 @@ export default function ProductsAndServices() {
     }
   };
 
-  // Categories from the dropdown
-  const categories = [
-    "All",
-    "iGaming & Sports Betting",
-    "Land-Based Casinos",
-    "Acquisition & Retention",
-    "Lottery",
-    "Global Payment Solutions",
-    "Enterprise"
-  ];
-
-  // Product card data with assigned categories
-  const productCards = [
-    {
-      id: 1,
-      title: "Turnkey/White-label Platforms",
-      logo: null,
-      category: "Enterprise",
-      description: "We represent a number of industry-leading iGaming platforms, and are able to identify the ideal solution to fit your operational needs. This makes NYCE a game-changing partner to kickstart your brand. Talk to us to discuss your requirements.",
-      slug: "turnkey-white-label-platforms"
-    },
-    {
-      id: 2,
-      title: "Summus Games",
-      logo: "summus",
-      category: "iGaming & Sports Betting",
-      description: "Combining Casino, betting and lottery expertise to create completely new and exciting games that bring something new to an otherwise static marketplace. As well as game content, Summus also has an aggregator with unique games - perfect for Operators looking to expand their product offering.",
-      slug: "summus"
-    },
-    {
-      id: 3,
-      title: "BETER",
-      logo: "beter",
-      category: "iGaming & Sports Betting",
-      description: "BETER is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.",
-      slug: "beter"
-    },
-    {
-      id: 4,
-      title: "Bitblox",
-      logo: "bitblox",
-      category: "Global Payment Solutions",
-      description: "Bitblox creates innovative and engaging crypto-price-based games for operators that deliver an entertaining experience unlike any other to its users. Bitblox's flagship product is the Up or Down, a simple crypto game based on the live price of Bitcoin.",
-      slug: "bitblox"
-    },
-    {
-      id: 5,
-      title: "FlashBET",
-      logo: "flashbet",
-      category: "Lottery",
-      description: "FlashBET is a patented and unique betting technology designed for the betting and gaming industry. It offers a distinct user experience by combining accumulator betting with lottery-style betting using the innovative Bet-Wheel - making it an ideal product to engage sports bettors.",
-      slug: "flashbet"
-    },
-    {
-      id: 6,
-      title: "Astro Play",
-      logo: "astroplay",
-      category: "Acquisition & Retention",
-      description: "Astro Play, a leading gaming aggregator, brings years of industry expertise to enhance online casinos. With cutting-edge technology, it offers superior products, promotions, and rapid response times, valuing partners and clients equally.",
-      slug: "astroplay"
-    },
-    {
-      id: 7,
-      title: "Atlas",
-      logo: "atlas",
-      category: "iGaming solution",
-      description: "Atlas Platform, a versatile iGaming solution, excels in handling player activities, wallet management, 3rd-party integrations, compliance functions, and reporting. With a microservices architecture, it provides tools for player accounting, billing, risk management, and more.",
-      slug: "atlas"
+  // Aplicar filtros e ordenação
+  useEffect(() => {
+    let results = [...productCards];
+    
+    // Aplicar filtro de busca
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      results = results.filter(product => 
+        product.title.toLowerCase().includes(query) || 
+        product.description.toLowerCase().includes(query)
+      );
     }
-  ];
+    
+    // Aplicar filtro de categoria
+    if (selectedCategories.length > 0) {
+      results = results.filter(product => 
+        selectedCategories.includes(product.category)
+      );
+    }
+    
+    // Aplicar ordenação
+    if (selectedSort === "A-Z Descending") {
+      results.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (selectedSort === "Z-A Ascending") {
+      results.sort((a, b) => b.title.localeCompare(a.title));
+    }
+    
+    setFilteredProducts(results);
+  }, [searchQuery, selectedSort, selectedCategories, selectedFeatures]);
+  
+  // Inicializar com todos os produtos exibidos
+  useEffect(() => {
+    setFilteredProducts(productCards);
+  }, []);
 
-  // State for the selected category
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  // Toggle category selection
+  const toggleCategory = (category: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
 
-  // Filter cards based on selected category
-  const filteredCards = selectedCategory === "All" 
-    ? productCards 
-    : productCards.filter(card => card.category === selectedCategory);
+  // Toggle feature selection
+  const toggleFeature = (feature: string) => {
+    setSelectedFeatures(prev => 
+      prev.includes(feature) 
+        ? prev.filter(f => f !== feature)
+        : [...prev, feature]
+    );
+  };
 
   return (
-    
-    <div className={`${hubotSans.variable} bg-[#0E0E0E] w-full min-h-screen text-white p-6 md:p-8`}>
-      {/* Header section with animations */}
+    <div className={`${hubotSans.variable} bg-black w-full min-h-screen text-white flex flex-col`}>
+      {/* Header - Apenas o botão Our Partners no topo como na imagem 3 */}
       <motion.div 
-        className="flex flex-col items-center justify-center mb-12"
+        className="w-full flex justify-center py-6"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
       >
-        <motion.h1 
-          className="text-4xl md:text-6xl font-sans mb-6"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          Products & Services
-        </motion.h1>
-            <motion.button
-              onClick={() => scrollToSection(partners)}
-              className="bg-zinc-700 hover:bg-zinc-600 text-white rounded-full px-8 py-3 flex items-center justify-center space-x-2 transition-colors"
-              whileHover={{ 
-                scale: 1.05,
-                backgroundColor: "#4B5563" // Slightly lighter gray on hover
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <span>Our Partners</span>
-              <motion.div
-                animate={{ y: [0, 5, 0] }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 1.5,
-                  ease: "easeInOut"
-                }}
-              >
-                <ArrowDown size={18} />
-              </motion.div>
-            </motion.button>
+          <Button 
+            variant="outline" 
+            className="bg-zinc-800 hover:bg-zinc-700 text-white border-zinc-700 rounded-full px-6"
+          >
+            Our Partners <ChevronDown className="ml-2 h-4 w-4" />
+          </Button>
+        </motion.div>
       </motion.div>
 
-      {/* Filter dropdown with animations */}
+      {/* Main Content - Layout side by side como na imagem 3 */}
       <motion.div 
-        className="mb-8 flex justify-start"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Button 
-                variant="outline" 
-                className="bg-zinc-800 hover:bg-zinc-700 text-white border-zinc-700 rounded-md px-4 py-2 flex items-center gap-2"
-              >
-                {selectedCategory} <ChevronDown className="h-4 w-4" />
-              </Button>
-            </motion.div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-zinc-900 border-zinc-800">
-            {categories.map((category) => (
-              <DropdownMenuItem
-                key={category}
-                className="text-zinc-300 hover:text-white hover:bg-zinc-800 cursor-pointer py-2"
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </motion.div>
-
-      {/* Card grid with staggered animations */}
-      <motion.div 
-      ref={partners}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        variants={containerVariants}
+        className="flex-1 px-4 pb-16 max-w-7xl mx-auto"
         initial="hidden"
         animate="visible"
-        key={selectedCategory} // This forces re-animation when category changes
+        variants={fadeIn}
       >
-        {filteredCards.map((card) => (
-          <motion.div
-            key={card.id}
-            variants={itemVariants}
-            className="bg-zinc-900 rounded-lg p-6 flex flex-col h-full transition-all duration-300"
-            whileHover={{ 
-              y: -5,
-              boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3)" 
-            }}
+        <div className="flex gap-6">
+          {/* Filters Sidebar - Painel lateral menor */}
+          <motion.div 
+            className="w-[305px] shrink-0 bg-zinc-900 rounded-lg p-6 h-fit sticky top-4 self-start"
+            variants={itemAnimation}
           >
-            {/* Title section */}
-            {card.logo ? (
-              // For cards with logos
-              <div className="mb-6 flex justify-center">
-                <div className="relative w-full h-24">
-                  <Image
-                    src={logoMap[card.logo]}
-                    alt={`${card.title} logo`}
-                    fill
-                    style={{ objectFit: 'contain' }}
-                    className="object-contain"
-                  />
+            {/* Search */}
+            <div className="mb-6">
+              <h3 className="text-base font-medium mb-2">Search the Marketplace</h3>
+              <div className="relative">
+                <Input 
+                  className="bg-zinc-800 border-zinc-700 text-white pl-8" 
+                  placeholder="Search" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-zinc-400" />
                 </div>
               </div>
-            ) : (
-              // For cards without logos
-              <h2 className="text-yellow-400 text-2xl font-sans mb-4">{card.title}</h2>
-            )}
+            </div>
             
-            {/* Title that appears below the logo - only for cards with logos */}
-            {card.logo && <h3 className="text-xl font-sans mb-4">{card.title}</h3>}
+            {/* Sort by */}
+            <div className="mb-6">
+              <h3 className="text-base font-medium mb-2">Sort by</h3>
+              <Select 
+                value={selectedSort} 
+                onValueChange={setSelectedSort}
+                defaultValue="A-Z Descending"
+              >
+                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white h-9">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-zinc-800 border-zinc-700 text-white">
+                  <SelectItem value="A-Z Descending">A-Z Descending</SelectItem>
+                  <SelectItem value="Z-A Ascending">Z-A Ascending</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             
             {/* Category */}
-            <div className="text-sm text-zinc-500 mb-4">
-              Category: {card.category}
+            <div className="mb-6">
+              <h3 className="text-base font-medium mb-2">Category</h3>
+              {categories.filter(cat => cat !== "All").map((category) => (
+                <div key={category} className="flex items-center mb-2">
+                  <Checkbox 
+                    id={`category-${category}`}
+                    checked={selectedCategories.includes(category)}
+                    onCheckedChange={() => toggleCategory(category)}
+                    className="border-zinc-700 h-4 w-4"
+                  />
+                  <label 
+                    htmlFor={`category-${category}`}
+                    className="ml-2 text-sm text-zinc-300 cursor-pointer"
+                  >
+                    {category}
+                  </label>
+                </div>
+              ))}
+              {["Lorem Ipsum Category", "Lorem Ipsum Category", "Lorem Ipsum Category"].map((category, index) => (
+                <div key={`lorem-${index}`} className="flex items-center mb-2">
+                  <Checkbox 
+                    id={`category-lorem-${index}`}
+                    className="border-zinc-700 h-4 w-4"
+                  />
+                  <label 
+                    htmlFor={`category-lorem-${index}`}
+                    className="ml-2 text-sm text-zinc-300 cursor-pointer"
+                  >
+                    {category}
+                  </label>
+                </div>
+              ))}
             </div>
             
-            {/* Description */}
-            <p className="text-zinc-300 mb-6 flex-grow">
-              {card.description}
-            </p>
+            {/* Features */}
             
-            {/* Learn more link - now with dynamic routing to partner page */}
-            <div className="mt-auto pt-4 border-t border-zinc-800">
-              <motion.div
-                whileHover={{ x: 3 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Link
-                  href={`/partners/${card.slug}`}
-                  className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1 text-sm"
-                >
-                  Learn more 
-                  <motion.span 
-                    className="text-lg"
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{ 
-                      repeat: Infinity, 
-                      duration: 1.5,
-                      ease: "easeInOut"
+            {/* <div>
+              <h3 className="text-base font-medium mb-2">Features</h3>
+              {features.map((feature, index) => (
+                <div key={`feature-${index}`} className="flex items-center mb-2">
+                  <Checkbox 
+                    id={`feature-${index}`}
+                    checked={selectedFeatures.includes(feature)}
+                    onCheckedChange={() => toggleFeature(feature)}
+                    className="border-zinc-700 h-4 w-4"
+                  />
+                  <label 
+                    htmlFor={`feature-${index}`}
+                    className="ml-2 text-sm text-zinc-300 cursor-pointer"
+                  >
+                    {feature}
+                  </label>
+                </div>
+              ))}
+            </div> */}
+          </motion.div>
+          
+          {/* Products Grid */}
+          <motion.div 
+            className="flex-1"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className="space-y-4">
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <motion.div 
+                    key={product.id} 
+                    className="bg-zinc-900 border-zinc-800 rounded-lg overflow-hidden"
+                    variants={itemAnimation}
+                    whileHover={{ 
+                      y: -1,
+                      boxShadow: "0 8px 15px rgba(0, 0, 0, 0.2)" 
                     }}
                   >
-                    →
-                  </motion.span>
-                </Link>
-              </motion.div>
+                    <div className="p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="w-[200px] h-[60px] flex items-center">
+                          {product.logo ? (
+                            <Image
+                              src={logoMap[product.logo]}
+                              alt={`${product.title} logo`}
+                              width={180}
+                              height={50}
+                              style={{ objectFit: 'contain' }}
+                            />
+                          ) : (
+                            <span className="text-yellow-400 text-lg font-medium px-2 py-1 rounded">{product.title}</span>
+                          )}
+                        </div>
+                        <motion.div
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
+                        >
+                          <Button 
+                            variant="outline" 
+                            className="bg-white text-black hover:bg-gray-200 rounded-full"
+                            asChild
+                          >
+                            <Link href={`/partners/${product.slug}`}>
+                              Visit Website
+                            </Link>
+                          </Button>
+                        </motion.div>
+                      </div>
+                      <p className="text-zinc-300 mb-2">{product.description}</p>
+                      <p className="text-zinc-400 text-sm">BETER is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.</p>
+                    </div>
+                  </motion.div>
+                ))
+              ) : (
+                <div className="flex items-center justify-center p-8 bg-zinc-900 rounded-lg">
+                  <p className="text-zinc-400 text-lg">Nenhum produto encontrado com os filtros selecionados.</p>
+                </div>
+              )}
             </div>
           </motion.div>
-        ))}
+        </div>
       </motion.div>
     </div>
   );

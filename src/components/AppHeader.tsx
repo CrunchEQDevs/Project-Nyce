@@ -28,7 +28,7 @@ export default function AppHeader() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo section */}
         <div className="flex items-center">
-          <h1 className="text-6xl font-bold">
+          <h1 className="text-4xl md:text-6xl font-bold">
             <span className="text-yellow-400">N</span>
             <span className="text-white">YCE</span>
           </h1>
@@ -36,28 +36,35 @@ export default function AppHeader() {
 
         {/* Center-aligned navigation for desktop - conditionally rendered */}
         {!isMobile && (
-          <div className="flex items-center justify-center space-x-4">
+          <div className="flex items-center justify-center space-x-4 overflow-x-auto">
             <Link href={"/"} className=" hover:bg-zinc-700 text-white rounded-full px-5 py-2 text-sm">
               Home
             </Link>
             <Link href={"/products&services"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
-              Products Marketplace
+              Marketplace
             </Link>
             <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
               NYCE STVs
             </Link>
             <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
-              Team
+              Teams
             </Link>
             {/* <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Stock
             </Link> */}
-            <Link href={"/"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+            <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Investors
             </Link>
             <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-              Latest
+              News
             </Link>
+            <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+              Venture studio
+            </Link>
+            <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+              NYCE House
+            </Link>
+           
           </div>
         )}
 
@@ -82,11 +89,23 @@ export default function AppHeader() {
                   <Link href={"/products&services"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
                     Products & Services
                   </Link>
+                  <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    NYCE STVs
+                  </Link>
                   <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    About
+                    Teams
                   </Link>
                   <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    Stock
+                    Investors
+                  </Link>
+                  <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    News
+                  </Link>
+                  <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    Venture studio
+                  </Link>
+                  <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    NYCE House
                   </Link>
                   <Link href={"#"} className="bg-white text-black hover:bg-gray-200 rounded-full px-4 py-2 text-sm text-center mt-4">
                     Get in Touch
