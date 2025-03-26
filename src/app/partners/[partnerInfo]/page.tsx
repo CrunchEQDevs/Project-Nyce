@@ -3,8 +3,9 @@
 import React, {use} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import FeaturedContent from '@/components/created/FeatureContent';
 
 // Define the Partner interface
 interface Partner {
@@ -170,7 +171,7 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
         
         {/* Statistics Section */}
         <div className="mb-12">
-          <div className="grid grid-cols border-2 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols  md:grid-cols-2 gap-6">
             
             <div className="bg-zinc-900  p-8 rounded-lg flex flex-col">
               <h3 className="text-yellow-400 text-2xl font-sans mb-4">Statistics</h3>
@@ -185,55 +186,95 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
                 </div>
               </div>
             </div>
-            
-            <div className="bg-zinc-900 p-8 rounded-lg">
-              <h3 className="text-yellow-400 text-2xl font-sans mb-4">Key Features</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="text-yellow-400 font-mono mr-2">•</span>
-                  <span>Industry-leading technology platform</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 font-mono mr-2">•</span>
-                  <span>Seamless integration with existing systems</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 font-mono mr-2">•</span>
-                  <span>Comprehensive reporting and analytics</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 font-mono mr-2">•</span>
-                  <span>24/7 technical support</span>
-                </li>
-              </ul>
+
+            <div className=" p-8 rounded-lg">
+              <h3 className="text-white text-4xl font-sans mb-4">Lorem ipsum <span className='text-yellow-400'>dolor sit</span> amet</h3>
+              <Link href="#" className="text-white flex items-center group underline">Lorem Ipsum Dolor <ChevronRight size={16} className="text-white group-hover:translate-x-1 transition-transform" /></Link> 
+              <div className='space-y-6 flex flex-col mt-2'> 
+                <p className=''>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, excepturi ducimus mollitia obcaecati pariatur blanditiis. Provident quos, eligendi at iure laborum dolorum blanditiis quae eum deserunt maiores nihil ipsa amet.
+                </p>
+                <p className=''>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, excepturi ducimus mollitia obcaecati pariatur blanditiis. Provident quos, eligendi at iure laborum dolorum blanditiis quae eum deserunt maiores nihil ipsa amet.
+                </p>
+                <p className=''>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, excepturi ducimus mollitia obcaecati pariatur blanditiis. Provident quos, eligendi at iure laborum dolorum blanditiis quae eum deserunt maiores nihil ipsa amet.
+                </p>
+                <p className=''>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, excepturi ducimus mollitia obcaecati pariatur blanditiis. Provident quos, eligendi at iure laborum dolorum blanditiis quae eum deserunt maiores nihil ipsa amet.
+                </p>
+              </div>
+              
             </div>
             
             
           </div>
         </div>
         
-        {/* Additional Content Section */}
+        {/* Statistics Section - UPDATED WITH NEW DESIGN */}
         <div className="mb-12">
-          <div className="bg-zinc-900 p-8 rounded-lg">
-            <h3 className="text-yellow-400 text-2xl font-sans mb-4">Why Choose {partner.title}</h3>
-            <p className="text-zinc-300 font-mono mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu.
-            </p>
-            <p className="text-zinc-300 font-mono">
-              Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left Column - Content and Link */}
+            <div className="p-8 rounded-lg">
+              <h3 className="text-white text-4xl font-sans mb-4">Lorem ipsum <span className="text-yellow-400">dolor sit</span> amet</h3>
+              
+              <div className="space-y-6 flex flex-col mb-6">
+                <p className="text-zinc-300">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at
+                </p>
+              </div>
+              
+              {/* Link with arrow */}
+              <Link href="#" className="inline-flex items-center text-white border-b border-white pb-1 hover:text-yellow-400 hover:border-yellow-400 transition-colors group">
+                <span>Lorem Ipsum Dolor</span>
+                <ChevronRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+            
+            {/* Right Column - Statistics with Yellow Corner Borders */}
+            <div className="flex justify-end items-center space-x-16 p-8">
+              {/* Statistic 1 */}
+              <div className="relative">
+                {/* Yellow corner borders */}
+                <div className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-yellow-400"></div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-yellow-400"></div>
+                
+                {/* Content */}
+                <div className="py-8 px-12 text-center">
+                  <p className="text-6xl font-bold mb-2">40+</p>
+                  <p className="text-gray-400">Statistic 1</p>
+                </div>
+              </div>
+              
+              {/* Statistic 2 */}
+              <div className="relative">
+                {/* Yellow corner borders */}
+                <div className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-yellow-400"></div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-yellow-400"></div>
+                
+                {/* Content */}
+                <div className="py-8 px-12 text-center">
+                  <p className="text-6xl font-bold mb-2">20%</p>
+                  <p className="text-gray-400">Statistic 2</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        {/* Contact Section */}
-        <div>
-          <div className="bg-zinc-900 p-8 rounded-lg">
-            <h3 className="text-yellow-400 text-2xl font-sans mb-4">Get in Touch</h3>
-            <p className="text-zinc-300 font-mono mb-6">
-              Interested in learning more about {partner.title}? Contact our team for a personalized demonstration or to discuss how we can help your business grow.
-            </p>
-          </div>
-        </div>
+        <FeaturedContent 
+  partner={partner}
+  logoMap={logoMap}
+  title={{
+    highlighted: partner.title,
+    regular: "showcase"
+  }}
+  description={partner.fullDescription || partner.description}
+  images={{
+    main: null,
+    secondary: null,
+    tertiary: null
+  }}
+/>
       </div>
     </div>
   );
