@@ -117,7 +117,7 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
           {/* Logo Section on Top */}
           {partner.logo ? (
             <div className="w-full flex justify-center mb-8">
-              <div className="relative w-full max-w-md bg-[#0E0E0E] p-10 rounded-lg flex flex-col items-center justify-center">
+              <div className="relative w-full bg-[#0E0E0E] p-10 rounded-lg flex flex-col items-center justify-center">
                 <Image
                   src={logoMap[partner.logo]}
                   alt={`${partner.title} logo`}
@@ -125,6 +125,11 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
                   height={150}
                   style={{ objectFit: 'contain' }}
                 />
+                
+              
+                <p className="flex text-white items-center text-sm  text-center justify-center">
+                  {partner.description}
+                </p>
                 <a 
                   href={partner.websiteUrl || "#"} 
                   target="_blank" 
@@ -133,7 +138,7 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
                 >
                   Visit Website
                 </a>
-              </div>
+                </div>
             </div>
           ) : (
             <div className="w-full flex justify-center mb-8">
@@ -148,17 +153,15 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
                   >
                     Visit Website
                   </a>
+                  
                 )}
+              
               </div>
             </div>
           )}
           
           {/* Description Section Below */}
           <div className="w-full bg-zinc-900 p-8 rounded-lg">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              {partner.title}
-            </h1>
-            <p className="text-sm text-zinc-500 mb-4">Category: {partner.category}</p>
             <p className="text-lg text-zinc-300">
               {partner.fullDescription || partner.description}
             </p>
@@ -167,7 +170,22 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
         
         {/* Statistics Section */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols border-2 md:grid-cols-2 gap-6">
+            
+            <div className="bg-zinc-900  p-8 rounded-lg flex flex-col">
+              <h3 className="text-yellow-400 text-2xl font-sans mb-4">Statistics</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="border border-zinc-800 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">40+</p>
+                  <p className="text-sm text-zinc-400">Statistic 1</p>
+                </div>
+                <div className="border border-zinc-800 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">20%</p>
+                  <p className="text-sm text-zinc-400">Statistic 2</p>
+                </div>
+              </div>
+            </div>
+            
             <div className="bg-zinc-900 p-8 rounded-lg">
               <h3 className="text-yellow-400 text-2xl font-sans mb-4">Key Features</h3>
               <ul className="space-y-3">
@@ -190,19 +208,7 @@ export default function PartnerPage(props: { params: { partnerInfo: string } }) 
               </ul>
             </div>
             
-            <div className="bg-zinc-900 p-8 rounded-lg flex flex-col justify-between">
-              <h3 className="text-yellow-400 text-2xl font-sans mb-4">Statistics</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="border border-zinc-800 p-4 text-center">
-                  <p className="text-3xl font-bold text-white">40+</p>
-                  <p className="text-sm text-zinc-400">Statistic 1</p>
-                </div>
-                <div className="border border-zinc-800 p-4 text-center">
-                  <p className="text-3xl font-bold text-white">20%</p>
-                  <p className="text-sm text-zinc-400">Statistic 2</p>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
         
