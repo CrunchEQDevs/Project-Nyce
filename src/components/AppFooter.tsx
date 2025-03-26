@@ -5,10 +5,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import XLogoOfficial from "./XLogo";
+import { Hubot_Sans, Fragment_Mono } from "next/font/google";
+
+const hubotSans = Hubot_Sans({
+  variable: "--font-hubot-sans",
+  subsets: ["latin"],
+});
+const fragmentMono = Fragment_Mono({
+  weight: "400",
+  variable: "--font-fragment-mono",
+  subsets: ["latin"],
+});
 
 export default function AppFooter() {
   return (
-    <footer className="bg-black text-white w-full">
+    <footer className={`${hubotSans.variable} ${fragmentMono.variable} bg-black text-white`}>
       {/* Separador superior */}
       <div className="border-t border-zinc-800 w-full"></div>
       
@@ -17,8 +28,8 @@ export default function AppFooter() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
           {/* Coluna da esquerda - Newsletter */}
           <div className="md:w-1/2">
-            <h2 className="text-4xl mb-10 leading-tight">
-              <span className="text-yellow-400">Subscribe</span> to the <span className="text-yellow-400">newsletter</span> for 
+            <h2 className="text-4xl mb-10 font-sans leading-tight">
+              <span className="text-yellow-400 font-sans">Subscribe</span> to the <span className="text-yellow-400 font-sans">newsletter</span> for 
               updates and industry insight.
             </h2>
             
@@ -32,9 +43,9 @@ export default function AppFooter() {
             </div>
             
             {/* Checkbox */}
-            <div className="flex items-start space-x-3 mb-6">
-              <Checkbox id="newsletter" className="mt-1 h-5 w-5 border-white rounded-none"/>
-              <label htmlFor="newsletter" className="text-white text-sm">
+            <div className="flex items-center space-x-3 mb-6 ">
+              <Checkbox id="newsletter" className="mt-1 h-5 w-5  border-white rounded-none"/>
+              <label htmlFor="newsletter" className="text-white  text-sm">
                 I have read and agree to the Terms & Conditions of NYCE International Ltd.
               </label>
             </div>
