@@ -223,7 +223,7 @@ export default function ProductsMarketplace() {
         >
           <Button 
             variant="outline" 
-            className="bg-zinc-800 hover:bg-zinc-700 text-white border-zinc-700 rounded-full px-6"
+            className="bg-zinc-800 hover:bg-zinc-700 text-white hover:text-white border-zinc-700 rounded-full px-6"
           >
             Our Partners <ChevronDown className="ml-2 h-4 w-4" />
           </Button>
@@ -347,7 +347,7 @@ export default function ProductsMarketplace() {
                 filteredProducts.map((product) => (
                   <motion.div 
                     key={product.id} 
-                    className="bg-zinc-900 border-zinc-800 rounded-lg overflow-hidden"
+                    className=" border-zinc-700 border-1 rounded-lg overflow-hidden"
                     variants={itemAnimation}
                     whileHover={{ 
                       y: -1,
@@ -385,13 +385,15 @@ export default function ProductsMarketplace() {
                         </motion.div>
                       </div>
                       <p className="text-zinc-300 mb-2">{product.description}</p>
-                      <p className="text-zinc-400 text-sm">BETER is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.</p>
-                    </div>
+                      {/* <p className="text-zinc-400 text-sm">
+                        {product.title} is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.</p>
+                    */} 
+                   </div> 
                   </motion.div>
                 ))
               ) : (
                 <div className="flex items-center justify-center p-8 bg-zinc-900 rounded-lg">
-                  <p className="text-zinc-400 text-lg">Nenhum produto encontrado com os filtros selecionados.</p>
+                  <p className="text-zinc-400 text-lg">No products match your search. Please try again.</p>
                 </div>
               )}
             </div>

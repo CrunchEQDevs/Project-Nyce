@@ -37,7 +37,7 @@ export default function NyceHousePage() {
       
       {/* Terceira seção - Features */}
       <div className="flex flex-col gap-8 justify-center py-20 w-full px-8 md:px-16 lg:px-24 xl:px-36 max-w-7xl mx-auto">
-        <h1 className="text-yellow-400  font-sans text-4xl w-full">
+        <h1 className="text-yellow-400 font-sans text-4xl w-full">
           What Makes NYCE House Unique?
         </h1>
         
