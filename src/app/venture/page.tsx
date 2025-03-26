@@ -29,7 +29,7 @@ export default function ViryaPage() {
           fields in Gambling, iGaming, esports, Web3, Metaverse and Blockchain technology. The Group was founded by Farzad Peyman, whom, alongside
           his partners, oversee the following Virya Group sub-brands and services:
         </p>
-        <Link href={"#"} className="bg-white text-black flex justify-center hover:bg-gray-700 hover:text-white rounded-full max-w-10 px-4 py-2 text-sm mb-16">
+        <Link href={"#"} className="bg-white text-black flex justify-center hover:bg-gray-700 hover:text-white rounded-full px-4 py-2 text-sm mb-16">
           Visit Website
         </Link>
       </div>

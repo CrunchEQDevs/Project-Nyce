@@ -43,8 +43,8 @@ export default function AppHeader() {
             <Link href={"/products&services"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
               Marketplace
             </Link>
-            <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
-              NYCE STVs
+            <Link href={"/stv"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
+              STVs
             </Link>
             <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
               Teams
@@ -55,7 +55,7 @@ export default function AppHeader() {
             <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Investors
             </Link>
-            <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+            <Link href={"/news"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               News
             </Link>
             <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
