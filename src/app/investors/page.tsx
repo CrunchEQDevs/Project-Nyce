@@ -56,8 +56,7 @@ export default function InvestorsPage() {
                 </h5>
                 <p className="text-white font-sans text-sm">
                     Virya, a UK based company, is a venture studio and investment firm that houses a multi-discipline advisory partner network with global access to deal flow within the betting and gaming industry. Virya provides executive and directorship services across all the key sub sectors of the industry being; product strategy, technology, AI, regulatory, licensing, compliance, affiliates marketing, payments and trading risk management.
-                </p>
-                
+                </p> 
     {/* Directors */}
 <h1 className="text-yellow-400 font-sans font-semibold text-2xl sm:text-3xl mt-8 mb-8">
   Directors
@@ -132,17 +131,9 @@ export default function InvestorsPage() {
     </div>
   </div>
 </div>
-                
-              {/* Strategic Advisers */}
-              <div className="pb-8 md:pb-16">
-                  <h1 className="text-yellow-400 p-8 font-sans font-semibold text-2xl sm:text-3xl px-4 sm:px-8 mb-6 md:mb-10">
-                    Advisers
-                  </h1>
-              </div>
-              
-                {/* Seção de Advisers e Registered Office */}
-                <div className="w-full px-10 py-12">
-                <div className="grid grid-cols-2 gap-x-20 max-w-6xl mx-auto">
+            {/* Seção de Advisers e Registered Office */}
+            <div className="w-full py-12">
+                <div className="grid grid-cols-2 gap-8 max-w-6xl mx-auto">
                     {/* Coluna de Advisers */}
                     <div>
                         <h2 className="text-yellow-400 font-sans text-3xl mb-8">Advisers</h2>
@@ -212,8 +203,8 @@ export default function InvestorsPage() {
             </div>
             
             {/* Seção de Corporate Governance e Circulars and Notices */}
-            <div className="w-full px-10 py-8">
-                <div className="grid grid-cols-2 gap-x-8 max-w-6xl mx-auto">
+            <div className="w-full  py-8">
+                <div className="grid grid-cols-2 gap-2 max-w-6xl mx-auto">
                     {/* Coluna de Corporate Governance */}
                     <div>
                         <h2 className="text-yellow-400 font-sans text-3xl mb-8">Corporate Governance</h2>
@@ -243,14 +234,14 @@ export default function InvestorsPage() {
                             <div className="flex justify-between">
                                 <p className="text-white font-sans">06, March, 2025</p>
                                 <Link href="#" className="text-white font-sans underline hover:text-yellow-400">
-                                    Notice of General Meeting – 6 8 24
+                                    Notice of General Meeting – 6/8/24
                                 </Link>
                             </div>
                             
                             <div className="flex justify-between">
                                 <p className="text-white font-sans">06, March, 2025</p>
                                 <Link href="#" className="text-white font-sans underline hover:text-yellow-400">
-                                    Proxy – General Meeting 22 8 2024
+                                    Proxy – General Meeting 22/8/2024
                                 </Link>
                             </div>
                             
@@ -264,7 +255,7 @@ export default function InvestorsPage() {
                             <div className="flex justify-between">
                                 <p className="text-white font-sans">06, March, 2025</p>
                                 <Link href="#" className="text-white font-sans underline hover:text-yellow-400">
-                                    Notice of General Meeting – 6 8 24
+                                    Notice of General Meeting – 6/8/24
                                 </Link>
                             </div>
                             <div className="h-px bg-zinc-800 w-full mt-4"></div>
@@ -331,19 +322,19 @@ export default function InvestorsPage() {
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr className="border-t border-zinc-800">
+                                  <tr className="border-t bg-zinc-600 border-zinc-800">
                                       <td className="p-3 md:p-4 text-white font-sans">Global Chain Limited</td>
                                       <td className="p-3 md:p-4 text-white font-sans">400,000,000</td>
                                       <td className="p-3 md:p-4 text-white font-sans">27.62%</td>
                                       <td className="p-3 md:p-4 text-white font-sans">1</td>
                                   </tr>
-                                  <tr className="border-t border-zinc-800">
+                                  <tr className="border-t  border-zinc-800">
                                       <td className="p-3 md:p-4 text-white font-sans">Hub Affiliations Holdings</td>
                                       <td className="p-3 md:p-4 text-white font-sans">145,000,000</td>
                                       <td className="p-3 md:p-4 text-white font-sans">10.01%</td>
                                       <td className="p-3 md:p-4 text-white font-sans">0</td>
                                   </tr>
-                                  <tr className="border-t border-zinc-800">
+                                  <tr className="border-t bg-zinc-600 border-zinc-800">
                                       <td className="p-3 md:p-4 text-white font-sans">Dominique Einhorn</td>
                                       <td className="p-3 md:p-4 text-white font-sans">61,875,000</td>
                                       <td className="p-3 md:p-4 text-white font-sans">4.27%</td>
@@ -355,7 +346,7 @@ export default function InvestorsPage() {
                                       <td className="p-3 md:p-4 text-white font-sans">3.45%</td>
                                       <td className="p-3 md:p-4 text-white font-sans">2</td>
                                   </tr>
-                                  <tr className="border-t border-zinc-800">
+                                  <tr className="border-t bg-zinc-600 border-zinc-800">
                                       <td className="p-3 md:p-4 text-white font-sans">City & Westminster Corporate Finance LLP</td>
                                       <td className="p-3 md:p-4 text-white font-sans">26,866,668</td>
                                       <td className="p-3 md:p-4 text-white font-sans">1.86%</td>
@@ -389,69 +380,121 @@ export default function InvestorsPage() {
                   </div>
               </div>
 
-              {/* Regulatory Announcements - Horizontal layout that turns vertical on mobile */}
-              <div className="w-full px-4 sm:px-6 md:px-10 py-6 md:py-8">
-                  <div className="max-w-6xl mx-auto">
-                      <h2 className="text-yellow-400 font-sans text-2xl sm:text-3xl mb-6 md:mb-8">Regulatory Announcements</h2>
-                      
-                      <div className="flex flex-col sm:flex-row sm:gap-x-12">
-                          {/* Dates Column */}
-                          <div className="w-full sm:w-1/3">
-                              <p className="text-zinc-400 font-sans text-sm mb-4 sm:mb-8">Date</p>
-                              
-                              <div className="space-y-2 mb-4 sm:mb-0">
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                                  <p className="text-white font-sans">06, March, 2025 09:37</p>
-                              </div>
-                          </div>
-                          
-                          {/* Titles Column */}
-                          <div className="w-full sm:w-2/3">
-                              <p className="text-zinc-400 font-sans text-sm mb-4 sm:mb-8 sm:px-8">Title</p>
-                              
-                              <div className="space-y-2 sm:px-8">
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">TR1 NOTIFICATION OF MAJOR HOLDINGS Tunch Kashif</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">ChallengerX Plc – Management Accounts for the quarters ended 30 June 2024 and 31 March 2024</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">ChallengerX Signs Exclusive Digital Asset Monetization Agreement with New Zealand Rugby Legend, Liam Messam.</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">ChallengerX Plc – Management Accounts for the quarters ended 30 June 2024 and 31 March 2024</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">ChallengerX Signs Exclusive Digital Asset Monetization Agreement with New Zealand Rugby Legend, Liam Messam.</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">TR1 NOTIFICATION OF MAJOR HOLDINGS Tunch Kashif</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">ChallengerX Plc – Management Accounts for the quarters ended 30 June 2024 and 31 March 2024</Link>
-                                  </p>
-                                  
-                                  <p className="text-white font-sans hover:text-yellow-400">
-                                      <Link href="#">ChallengerX Signs Exclusive Digital Asset Monetization Agreement with New Zealand Rugby Legend, Liam Messam.</Link>
-                                  </p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+{/* Regulatory Announcements - Horizontal layout with dates and titles side by side */}
+<div className="w-full px-4 sm:px-6 md:px-10 py-6 md:py-8">
+    <div className="max-w-6xl mx-auto">
+        <h2 className="text-yellow-400 font-sans text-2xl sm:text-3xl mb-6 md:mb-8">Regulatory Announcements</h2>
+        
+        {/* Headers for columns */}
+        <div className="flex flex-row mb-4">
+            <div className="w-1/3">
+                <p className="text-zinc-400 font-sans text-sm">Date</p>
+            </div>
+            <div className="w-2/3">
+                <p className="text-zinc-400 font-sans text-sm">Title</p>
+            </div>
+        </div>
+        
+        {/* Announcement items */}
+        <div className="space-y-5">
+            {/* Item 1 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">TR1 NOTIFICATION OF MAJOR HOLDINGS Tunch Kashif</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 2 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">ChallengerX Plc – Management Accounts for the quarters ended 30 June 2024 and 31 March 2024</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 3 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">ChallengerX Signs Exclusive Digital Asset Monetization Agreement with New Zealand Rugby Legend, Liam Messam.</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 4 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">ChallengerX Plc – Management Accounts for the quarters ended 30 June 2024 and 31 March 2024</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 5 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">ChallengerX Signs Exclusive Digital Asset Monetization Agreement with New Zealand Rugby Legend, Liam Messam.</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 6 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">TR1 NOTIFICATION OF MAJOR HOLDINGS Tunch Kashif</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 7 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">ChallengerX Plc – Management Accounts for the quarters ended 30 June 2024 and 31 March 2024</Link>
+                    </p>
+                </div>
+            </div>
+            
+            {/* Item 8 */}
+            <div className="flex flex-row items-center">
+                <div className="w-1/3">
+                    <p className="text-white font-sans">06, March, 2025 09:37</p>
+                </div>
+                <div className="w-2/3">
+                    <p className="text-white font-sans hover:text-yellow-400">
+                        <Link href="#">ChallengerX Signs Exclusive Digital Asset Monetization Agreement with New Zealand Rugby Legend, Liam Messam.</Link>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
           </div>
         </div>
     );
