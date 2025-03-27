@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { ChevronDown, ArrowDown, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Hubot_Sans } from 'next/font/google';
+
 
 const hubotSans = Hubot_Sans({
   variable: "--font-hubot-sans",
@@ -117,11 +119,24 @@ const features = [
 ];
 
 export default function ProductsMarketplace() {
+  const searchParams = useSearchParams();
+  const categoryFromUrl = searchParams.get('category');
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSort, setSelectedSort] = useState("A-Z Descending");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [filteredProducts, setFilteredProducts] = useState(productCards);
+
+  // Aplica o filtro de categoria da URL quando a página carrega
+  useEffect(() => {
+    if (categoryFromUrl) {
+      const decodedCategory = decodeURIComponent(categoryFromUrl);
+      if (categories.includes(decodedCategory)) {
+        setSelectedCategories([decodedCategory]);
+      }
+    }
+  }, [categoryFromUrl]);
 
   // Animation variants
   const fadeIn = {
@@ -184,11 +199,6 @@ export default function ProductsMarketplace() {
     
     setFilteredProducts(results);
   }, [searchQuery, selectedSort, selectedCategories, selectedFeatures]);
-  
-  // Inicializar com todos os produtos exibidos
-  useEffect(() => {
-    setFilteredProducts(productCards);
-  }, []);
 
   // Toggle category selection
   const toggleCategory = (category: string) => {
@@ -221,12 +231,14 @@ export default function ProductsMarketplace() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Button 
-            variant="outline" 
-            className="bg-zinc-800 hover:bg-zinc-700 text-white hover:text-white border-zinc-700 rounded-full px-6"
-          >
-            Our Partners <ChevronDown className="ml-2 h-4 w-4" />
-          </Button>
+        <Link href="/products">
+            <Button 
+                variant="outline" 
+                className="bg-zinc-800 hover:bg-zinc-700 text-white hover:text-white border-zinc-700 rounded-full px-6"
+            >
+                Categories <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+            </Link>
         </motion.div>
       </motion.div>
 
@@ -311,28 +323,6 @@ export default function ProductsMarketplace() {
                 </div>
               ))}
             </div>
-            
-            {/* Features */}
-            
-            {/* <div>
-              <h3 className="text-base font-medium mb-2">Features</h3>
-              {features.map((feature, index) => (
-                <div key={`feature-${index}`} className="flex items-center mb-2">
-                  <Checkbox 
-                    id={`feature-${index}`}
-                    checked={selectedFeatures.includes(feature)}
-                    onCheckedChange={() => toggleFeature(feature)}
-                    className="border-zinc-700 h-4 w-4"
-                  />
-                  <label 
-                    htmlFor={`feature-${index}`}
-                    className="ml-2 text-sm text-zinc-300 cursor-pointer"
-                  >
-                    {feature}
-                  </label>
-                </div>
-              ))}
-            </div> */}
           </motion.div>
           
           {/* Products Grid */}
@@ -385,10 +375,7 @@ export default function ProductsMarketplace() {
                         </motion.div>
                       </div>
                       <p className="text-zinc-300 mb-2">{product.description}</p>
-                      {/* <p className="text-zinc-400 text-sm">
-                        {product.title} is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.</p>
-                    */} 
-                   </div> 
+                    </div> 
                   </motion.div>
                 ))
               ) : (
