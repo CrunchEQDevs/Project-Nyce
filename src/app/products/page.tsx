@@ -18,18 +18,17 @@ export default function ProductsCategories() {
   
   const handleCategoryClick = (category) => {
     setSelectedCategory(category.id);
-    
-    // Try direct path with proper URL handling
+    // Navigation to products-and-services (this matches your folder structure)
     router.push(`/products-and-services?category=${encodeURIComponent(category.name)}`);
   };
-
+  
   return (
     <div className="min-h-screen bg-black text-white">
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-5xl md:text-6xl font-light text-center mb-16">
           Products Marketplace
         </h1>
-
+        
         <div className="flex justify-center mb-16">
           <div className="relative inline-block">
             <button className="bg-zinc-800 text-white py-3 px-8 rounded-full flex items-center space-x-2">
@@ -40,13 +39,13 @@ export default function ProductsCategories() {
             </button>
           </div>
         </div>
-
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {categories.map((category) => (
             <div
               key={category.id}
               className={`
-                relative p-8 h-32 flex items-center justify-center 
+                relative p-8 h-32 flex items-center justify-center
                 bg-zinc-900 cursor-pointer rounded-lg
                 transition-all duration-300
                 hover:border-2 hover:border-yellow-500

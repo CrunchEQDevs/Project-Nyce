@@ -86,7 +86,7 @@ export default function AppHeader() {
                   <Link href={"/"} className="bg-zinc-800 hover:bg-zinc-700 text-white rounded-full px-4 py-2 text-sm text-center">
                     Home
                   </Link>
-                  <Link href={"/products"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                  <Link href={"/products&services"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
                     Products & Services
                   </Link>
                   <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
