@@ -82,7 +82,7 @@ export default function InvestorsPage() {
       <h3 className="text-zinc-400 font-sans mb-6 font-bold text-md uppercase">
         CEO
       </h3>
-      <p className="text-white font-sans text-sm leading-relaxed">
+      <p className="text-white font-mono text-sm leading-relaxed">
         Farzad has 18 years&apos; operational iGaming experience in B2B and B2C across both publicly listed and private companies. He is a leader of significant business change, and regularly advises on product development, marketing, technology, M&A, corporate restructuring, regulation & licensing, compliance and financial control. Ex-CEO and CFO of Matchbook Betting Exchange, Farzad has brought to NYCE a strong community of independent specialist advisors investing in the most promising and sustainable projects across iGaming, Web3, Metaverse, Blockchain and AI technologies.
       </p>
       <div className="mt-6">
@@ -117,7 +117,7 @@ export default function InvestorsPage() {
       <h3 className="text-zinc-400 font-sans mb-6 font-bold text-md uppercase">
         Executive Chairman
       </h3>
-      <p className="text-white font-sans text-sm leading-relaxed">
+      <p className="text-white font-mono text-sm leading-relaxed">
         Harmen has 20 years of experience in the betting and gaming industry. He has held senior positions at Betfair, Betsson, and BetConstruct. Harmen has a strong track record of delivering growth and profitability in the gaming industry. He has a deep understanding of the gaming industry and has a proven track record of delivering growth and profitability.
       </p>
       <div className="mt-6">

@@ -47,21 +47,21 @@ const teamMembers: TeamMemberData[] = [
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/mishja.png",
-    linkedinUrl: "https://www.linkedin.com/in/mushja-van-der-linden-0b0b1b1/"
+    linkedinUrl: "https://www.linkedin.com/in/mishjavanderlinden/"
   },
   {
     name: "Ffinlo Martin",
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/ffinlo.png",
-    linkedinUrl: "https://www.linkedin.com/in/ffinlo-martin-0b0b1b1/"
+    linkedinUrl: "https://www.linkedin.com/in/ffin/"
   },
   {
     name: "Claudio Faccio",
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/claudio.png",
-    linkedinUrl: "https://www.linkedin.com/in/claudio-faccio-0b0b1b1/"
+    linkedinUrl: "https://www.linkedin.com/in/claudiofaccio/"
   },
   // Comitê Consultivo
   {
@@ -69,7 +69,7 @@ const teamMembers: TeamMemberData[] = [
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/jeffrey.png",
-    linkedinUrl: "https://www.linkedin.com/in/jeffrey-katz-0",
+    linkedinUrl: "https://www.linkedin.com/in/jeffrkatz/",
     isAdvisory: true
   },
   {
@@ -77,7 +77,7 @@ const teamMembers: TeamMemberData[] = [
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/onelia.png",
-    linkedinUrl: "https://www.linkedin.com/in/onelia-paludi-0b0b1b1/",
+    linkedinUrl: "https://www.linkedin.com/in/onelia-paludi-36470194/",
     isAdvisory: true
   },
   {
@@ -85,7 +85,7 @@ const teamMembers: TeamMemberData[] = [
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/xanthi.png",
-    linkedinUrl: "https://www.linkedin.com/in/xanthi-chrysanthou-0b0b1b1/",
+    linkedinUrl: "https://www.linkedin.com/in/xanthichrysanthou/",
     isAdvisory: true
   },
   {
@@ -93,7 +93,7 @@ const teamMembers: TeamMemberData[] = [
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/hansi.png",
-    linkedinUrl: "https://www.linkedin.com/in/hansi-asiderano-0b0b1b1/",
+    linkedinUrl: "https://www.linkedin.com/in/hansi-asiredano/",
     isAdvisory: true
   },
   {
@@ -109,7 +109,7 @@ const teamMembers: TeamMemberData[] = [
     title: "Executive Chairman",
     bio: "He has been at the forefront of the development of the gaming industry for almost 30 years. He is an experienced entrepreneur and executive and has founded successful technology, distribution and operations-led companies and as well as his own companies, he has driven the international growth of numerous independent companies with products and teams he has believed in.",
     imageUrl: "/jose.png",
-    linkedinUrl: "https://www.linkedin.com/in/jose-paternostro-0b0b1b1/",
+    linkedinUrl: "https://www.linkedin.com/in/jose-paternostro-6118b538/",
     isAdvisory: true
   }
 ];
