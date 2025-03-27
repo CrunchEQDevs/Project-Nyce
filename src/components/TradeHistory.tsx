@@ -62,28 +62,28 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     maxChange: ''
   });
 
-  // Função para obter cor com base na variação de preço
+  // Function to get color based on price change
   const getPriceChangeColor = (change: number | undefined) => {
-    if (!change) return "#6b7280"; // Cinza para nulo
-    if (change > 0) return "#22c55e"; // Verde para positivo
-    if (change < 0) return "#ef4444"; // Vermelho para negativo
-    return "#6b7280"; // Cinza para neutro
+    if (!change) return "#6b7280"; // Gray for null
+    if (change > 0) return "#22c55e"; // Green for positive
+    if (change < 0) return "#ef4444"; // Red for negative
+    return "#6b7280"; // Gray for neutral
   };
 
-  // Função para formatar preço
+  // Function to format price
   const formatPrice = (price: number) => `${price.toFixed(3)} ${currency}`;
 
-  // Função para classificar dados
+  // Function to sort data
   const sortedData = useMemo(() => {
     if (!data) return [];
     
-    // Criar uma cópia para não modificar os dados originais
+    // Create a copy to avoid modifying original data
     const sortableData = [...data];
     
-    // Aplicar classificação
+    // Apply sorting
     sortableData.sort((a, b) => {
       if (sortConfig.key === 'date') {
-        // Converter strings de data para objetos Date para comparação correta
+        // Convert date strings to Date objects for proper comparison
         const dateA = new Date(a.date.split('/').reverse().join('-'));
         const dateB = new Date(b.date.split('/').reverse().join('-'));
         return sortConfig.direction === 'ascending' 
@@ -91,7 +91,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
           : dateB.getTime() - dateA.getTime();
       }
       
-      // Para campos numéricos
+      // For numeric fields
       const aValue = a[sortConfig.key as keyof DayData] as number;
       const bValue = b[sortConfig.key as keyof DayData] as number;
       
@@ -103,17 +103,17 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     return sortableData;
   }, [data, sortConfig]);
 
-  // Função para filtrar dados
+  // Function to filter data
   const filteredData = useMemo(() => {
     if (!sortedData) return [];
     
     return sortedData.filter(day => {
-      // Filtro de pesquisa de texto (na data)
+      // Text search filter (on date)
       if (searchTerm && !day.date.toLowerCase().includes(searchTerm.toLowerCase())) {
         return false;
       }
       
-      // Filtros numéricos
+      // Numeric filters
       if (filterValues.minVolume && day.volume < parseFloat(filterValues.minVolume)) return false;
       if (filterValues.maxVolume && day.volume > parseFloat(filterValues.maxVolume)) return false;
       
@@ -127,7 +127,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     });
   }, [sortedData, searchTerm, filterValues]);
 
-  // Agrupamento de dados
+  // Data grouping
   const groupedData = useMemo(() => {
     if (!filteredData) return {};
     
@@ -138,27 +138,27 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
       const dateParts = day.date.split('/');
       
       if (dateParts.length === 3) {
-        // Data no formato DD/MM/YYYY
+        // Date in format MM/DD/YYYY
         const month = parseInt(dateParts[1]);
         const year = dateParts[2];
         
         if (viewMode === 'month') {
-          // Agrupar por mês
+          // Group by month
           const monthNames = [
-            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
           ];
           groupKey = `${monthNames[month - 1]} ${year}`;
         } else if (viewMode === 'quarter') {
-          // Agrupar por trimestre
+          // Group by quarter
           const quarter = Math.ceil(month / 3);
           groupKey = `${year} - Q${quarter}`;
         } else {
-          // Não agrupar (modo 'all')
+          // No grouping (all mode)
           groupKey = 'all';
         }
       } else {
-        // Formato de data não esperado
+        // Unexpected date format
         groupKey = 'unknown';
       }
       
@@ -172,10 +172,10 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     return groups;
   }, [filteredData, viewMode]);
 
-  // Paginação
+  // Pagination
   const paginatedData = useMemo(() => {
     if (viewMode !== 'all') {
-      return []; // Quando agrupado, não usamos paginação
+      return []; // When grouped, we don't use pagination
     }
     
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -184,12 +184,12 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
   
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  // Reiniciar paginação quando filtros mudam
+  // Reset pagination when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, filterValues, viewMode]);
 
-  // Função para alternar a classificação
+  // Function to toggle sorting
   const requestSort = (key: string) => {
     let direction: 'ascending' | 'descending' = 'ascending';
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -198,7 +198,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     setSortConfig({ key, direction });
   };
   
-  // Função para renderizar cabeçalho das colunas com indicador de ordenação
+  // Function to render column headers with sort indicator
   const renderSortableHeader = (key: string, label: string, alignment: string = 'left') => {
     const sortDirection = sortConfig.key === key ? (sortConfig.direction === 'ascending' ? '↑' : '↓') : '';
     return (
@@ -214,7 +214,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     );
   };
 
-  // Função para lidar com alteração de expansão de grupos
+  // Function to handle group expansion toggle
   const toggleGroup = (groupKey: string) => {
     if (expandedGroups.includes(groupKey)) {
       setExpandedGroups(expandedGroups.filter(g => g !== groupKey));
@@ -223,20 +223,20 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     }
   };
 
-  // Renderização da tabela normal (sem agrupamento)
+  // Regular table rendering (without grouping)
   const renderRegularTable = () => (
     <>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-[#131A2B] text-white border-b border-gray-700">
-              {renderSortableHeader('date', 'Data')}
-              {renderSortableHeader('open', 'Abertura', 'right')}
-              {renderSortableHeader('high', 'Alta', 'right')}
-              {renderSortableHeader('low', 'Baixa', 'right')}
-              {renderSortableHeader('close', 'Fechamento', 'right')}
+              {renderSortableHeader('date', 'Date')}
+              {renderSortableHeader('open', 'Open', 'right')}
+              {renderSortableHeader('high', 'High', 'right')}
+              {renderSortableHeader('low', 'Low', 'right')}
+              {renderSortableHeader('close', 'Close', 'right')}
               {renderSortableHeader('volume', 'Volume', 'right')}
-              {renderSortableHeader('change', 'Variação', 'right')}
+              {renderSortableHeader('change', 'Change', 'right')}
             </tr>
           </thead>
           <tbody>
@@ -263,10 +263,10 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
         </table>
       </div>
       
-      {/* Controles de paginação */}
+      {/* Pagination controls */}
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-400">Linhas por página:</span>
+          <span className="text-sm text-gray-400">Rows per page:</span>
           <Select 
             value={itemsPerPage.toString()} 
             onValueChange={(value) => setItemsPerPage(parseInt(value))}
@@ -301,7 +301,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
           </button>
           
           <span className="px-3 py-1 text-gray-300">
-            Página {currentPage} de {totalPages || 1}
+            Page {currentPage} of {totalPages || 1}
           </span>
           
           <button
@@ -323,7 +323,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     </>
   );
 
-  // Renderização da tabela agrupada
+  // Grouped table rendering
   const renderGroupedTable = () => (
     <div className="space-y-4">
       {Object.keys(groupedData).sort().reverse().map(groupKey => (
@@ -345,9 +345,9 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
               <div className="flex justify-between items-center w-full">
                 <div className="font-medium">{groupKey}</div>
                 <div className="text-sm text-gray-400 px-2">
-                  {groupedData[groupKey].length} registros | 
+                  {groupedData[groupKey].length} records | 
                   Volume: {groupedData[groupKey] .reduce((sum, day) => sum + day.volume, 0).toLocaleString()} | 
-                  Variação: {
+                  Change: {
                     groupedData[groupKey].length > 1 
                       ? ((groupedData[groupKey][0].close - groupedData[groupKey][groupedData[groupKey].length-1].close) / 
                          groupedData[groupKey][groupedData[groupKey].length-1].close * 100).toFixed(2) + '%'
@@ -361,13 +361,13 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-[#0F1629] text-white border-b border-gray-700">
-                      <th className="px-4 py-2 text-left">Data</th>
-                      <th className="px-4 py-2 text-right">Abertura</th>
-                      <th className="px-4 py-2 text-right">Alta</th>
-                      <th className="px-4 py-2 text-right">Baixa</th>
-                      <th className="px-4 py-2 text-right">Fechamento</th>
+                      <th className="px-4 py-2 text-left">Date</th>
+                      <th className="px-4 py-2 text-right">Open</th>
+                      <th className="px-4 py-2 text-right">High</th>
+                      <th className="px-4 py-2 text-right">Low</th>
+                      <th className="px-4 py-2 text-right">Close</th>
                       <th className="px-4 py-2 text-right">Volume</th>
-                      <th className="px-4 py-2 text-right">Variação</th>
+                      <th className="px-4 py-2 text-right">Change</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -400,7 +400,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
     </div>
   );
 
-  // Cálculo de estatísticas gerais
+  // Calculate general statistics
   const stats = useMemo(() => {
     if (filteredData.length === 0) return null;
     
@@ -419,18 +419,18 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
       <CardHeader className="pb-2">
         <div className="flex flex-wrap justify-between items-center gap-4">
           <CardTitle className="text-xl font-sans text-white">
-          <span className='text-xl font-sans text-yellow-400'>Histórico</span>   de Negociações {selectedYear && `(${selectedYear})`}
+          <span className='text-xl font-sans text-yellow-400'>Trade</span> History {selectedYear && `(${selectedYear})`}
           </CardTitle>
           
           <div className="flex flex-wrap gap-2">
-            {/* Controles do ano */}
+            {/* Year controls */}
             {onYearChange && (
               <Select 
                 value={selectedYear} 
                 onValueChange={onYearChange}
               >
                 <SelectTrigger className="w-[90px] h-8 bg-[#131A2B] border-gray-700 text-white">
-                  <SelectValue placeholder="Ano" />
+                  <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#131A2B] border-gray-700 text-white">
                   <SelectItem value="2025">2025</SelectItem>
@@ -439,25 +439,25 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
               </Select>
             )}
             
-            {/* Controle de modo de visualização */}
+            {/* View mode control */}
             <Select 
               value={viewMode} 
               onValueChange={(value: any) => setViewMode(value)}
             >
               <SelectTrigger className="w-[130px] h-8 bg-[#131A2B] border-gray-700 text-white">
-                <SelectValue placeholder="Visualização" />
+                <SelectValue placeholder="View" />
               </SelectTrigger>
               <SelectContent className="bg-[#131A2B] border-gray-700 text-white">
-                <SelectItem value="all">Completo</SelectItem>
-                <SelectItem value="month">Por Mês</SelectItem>
-                <SelectItem value="quarter">Por Trimestre</SelectItem>
+                <SelectItem value="all">Complete</SelectItem>
+                <SelectItem value="month">By Month</SelectItem>
+                <SelectItem value="quarter">By Quarter</SelectItem>
               </SelectContent>
             </Select>
             
-            {/* Campo de pesquisa */}
+            {/* Search field */}
             <input
               type="text"
-              placeholder="Buscar por data..."
+              placeholder="Search by date..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="h-8 px-3 bg-[#131A2B] border border-gray-700 rounded-md text-white text-sm placeholder-gray-500"
@@ -465,11 +465,11 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
           </div>
         </div>
         
-        {/* Painel de filtros */}
+        {/* Filter panel */}
         <Accordion type="single" collapsible className="mt-2">
           <AccordionItem value="filters" className="border-gray-700">
             <AccordionTrigger className="py-2 text-sm text-blue-400 hover:text-blue-300">
-              Filtros avançados
+              Advanced filters
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
@@ -495,7 +495,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
                 </div>
                 
                 <div>
-                  <p className="text-xs text-gray-400 mb-1">Preço (Fechamento)</p>
+                  <p className="text-xs text-gray-400 mb-1">Price (Close)</p>
                   <div className="flex items-center space-x-2">
                     <input 
                       type="number" 
@@ -516,7 +516,7 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
                 </div>
                 
                 <div>
-                  <p className="text-xs text-gray-400 mb-1">Variação (%)</p>
+                  <p className="text-xs text-gray-400 mb-1">Change (%)</p>
                   <div className="flex items-center space-x-2">
                     <input 
                       type="number" 
@@ -549,26 +549,26 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
                   })}
                   className="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 text-white rounded-md"
                 >
-                  Limpar Filtros
+                  Clear Filters
                 </button>
               </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
         
-        {/* Resumo estatístico */}
+        {/* Statistical summary */}
         {stats && (
           <div className="mt-3 text-sm text-gray-400 grid grid-cols-3 gap-4 py-2 border-t border-gray-800">
             <div>
-              <span className="mr-1">Registros:</span>
+              <span className="mr-1">Records:</span>
               <span className="font-medium text-white">{stats.totalRecords}</span>
             </div>
             <div>
-              <span className="mr-1">Volume Total:</span>
+              <span className="mr-1">Total Volume:</span>
               <span className="font-medium text-white">{stats.totalVolume.toLocaleString()}</span>
             </div>
             <div>
-              <span className="mr-1">Dias com Alta/Baixa:</span>
+              <span className="mr-1">Up/Down Days:</span>
               <span className="font-medium text-green-500">{stats.positiveChanges}</span>
               <span className="mx-1">/</span>
               <span className="font-medium text-red-500">{stats.negativeChanges}</span>
@@ -578,13 +578,13 @@ const RefinedTradeHistory: React.FC<TradeHistoryProps> = ({
       </CardHeader>
       
       <CardContent>
-        {/* Renderização condicional baseada no modo de visualização */}
+        {/* Conditional rendering based on view mode */}
         {viewMode === 'all' ? renderRegularTable() : renderGroupedTable()}
       </CardContent>
       
       {viewMode !== 'all' && (
         <CardFooter className="border-t border-gray-800 pt-4 text-center text-gray-400 text-sm">
-          Expanda os grupos para visualizar os dados detalhados. Os dados estão organizados {viewMode === 'month' ? 'por mês' : 'por trimestre'}.
+          Expand the groups to view detailed data. Data is organized {viewMode === 'month' ? 'by month' : 'by quarter'}.
         </CardFooter>
       )}
     </Card>

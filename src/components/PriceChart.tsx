@@ -47,21 +47,21 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
   const [showArea, setShowArea] = useState<boolean>(true);
   const [processedData, setProcessedData] = useState<TradeData[]>([]);
   
-  // Função para formatar valor
+  // Formatting functions for price and volume
   const formatPrice = (price: number): string => `${price.toFixed(3)} ${currency}`;
   const formatVolume = (volume: number): string => volume.toLocaleString();
   
   useEffect(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
-      console.warn("Dados inválidos recebidos no RefinedPriceChart:", data);
+      console.warn("Invalid data received in RefinedPriceChart:", data);
       setProcessedData([]);
       return;
     }
   
     try {
-      // Processar os dados garantindo que 'date' seja um objeto Date
+      // Process data ensuring 'date' is a Date object
       const processed = data.map(item => {
-        // Se o item.date não for um objeto Date, tentamos converter
+        // If item.date is not a Date object, we try to convert it
         const dateObject = item.date instanceof Date 
           ? item.date 
           : new Date(item.traded_datetime || item.date);
@@ -69,7 +69,7 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
         return {
           ...item,
           date: dateObject,
-          // Garantir que formattedDate seja sempre uma string
+          // Ensure formattedDate is always a string
           formattedDate: item.formattedDate || 
             `${dateObject.getDate().toString().padStart(2, '0')}/${(dateObject.getMonth() + 1).toString().padStart(2, '0')}/${dateObject.getFullYear()}`
         };
@@ -77,19 +77,19 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
       
       setProcessedData(processed);
       
-      // Log para diagnóstico
-      console.log("Dados processados:", {
+      // Diagnostic logging
+      console.log("Processed data:", {
         total: processed.length,
-        primeiro: processed[0],
-        último: processed[processed.length - 1]
+        first: processed[0],
+        last: processed[processed.length - 1]
       });
     } catch (error) {
-      console.error("Erro ao processar dados no RefinedPriceChart:", error);
+      console.error("Error processing data in RefinedPriceChart:", error);
       setProcessedData([]);
     }
   }, [data]);
   
-  // Cálculo de estatísticas
+  // Calculate statistics
   const avgPrice = propAvgPrice !== undefined 
     ? propAvgPrice 
     : processedData.length > 0 
@@ -108,44 +108,44 @@ const RefinedPriceChart: React.FC<RefinedPriceChartProps> = ({
       ? Math.max(...processedData.map(item => item.price))
       : 0;
   
- // Encontrar a data mais recente no conjunto de dados
-const mostRecentDate = processedData.length > 0 
-? new Date(Math.max(...processedData.map(item => 
-    item.date instanceof Date ? item.date.getTime() : new Date(item.date).getTime())))
-: new Date();
+  // Find the most recent date in the dataset
+  const mostRecentDate = processedData.length > 0 
+    ? new Date(Math.max(...processedData.map(item => 
+        item.date instanceof Date ? item.date.getTime() : new Date(item.date).getTime())))
+    : new Date();
 
-// Filtrar dados com base no período selecionado, relativo à data mais recente
-const filteredData = processedData.filter(item => {
-if (dataRange === 'all') return true;
+  // Filter data based on selected period, relative to most recent date
+  const filteredData = processedData.filter(item => {
+    if (dataRange === 'all') return true;
 
-// Garantir que temos um objeto Date para comparação
-const itemDate = item.date instanceof Date ? item.date : new Date(item.date);
+    // Ensure we have a Date object for comparison
+    const itemDate = item.date instanceof Date ? item.date : new Date(item.date);
 
-if (dataRange === 'week') {
-  // Últimos 7 dias a partir da data mais recente
-  const oneWeekAgo = new Date(mostRecentDate);
-  oneWeekAgo.setDate(mostRecentDate.getDate() - 7);
-  return itemDate >= oneWeekAgo;
-}
+    if (dataRange === 'week') {
+      // Last 7 days from most recent date
+      const oneWeekAgo = new Date(mostRecentDate);
+      oneWeekAgo.setDate(mostRecentDate.getDate() - 7);
+      return itemDate >= oneWeekAgo;
+    }
 
-if (dataRange === 'month') {
-  // Último mês a partir da data mais recente
-  const oneMonthAgo = new Date(mostRecentDate);
-  oneMonthAgo.setMonth(mostRecentDate.getMonth() - 1);
-  return itemDate >= oneMonthAgo;
-}
+    if (dataRange === 'month') {
+      // Last month from most recent date
+      const oneMonthAgo = new Date(mostRecentDate);
+      oneMonthAgo.setMonth(mostRecentDate.getMonth() - 1);
+      return itemDate >= oneMonthAgo;
+    }
 
-if (dataRange === 'quarter') {
-  // Último trimestre a partir da data mais recente
-  const oneQuarterAgo = new Date(mostRecentDate);
-  oneQuarterAgo.setMonth(mostRecentDate.getMonth() - 3);
-  return itemDate >= oneQuarterAgo;
-}
+    if (dataRange === 'quarter') {
+      // Last quarter from most recent date
+      const oneQuarterAgo = new Date(mostRecentDate);
+      oneQuarterAgo.setMonth(mostRecentDate.getMonth() - 3);
+      return itemDate >= oneQuarterAgo;
+    }
 
-return true;
-});
+    return true;
+  });
   
-  // Tooltip personalizado
+  // Custom tooltip
   const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       const itemData = payload[0].payload;
@@ -154,7 +154,7 @@ return true;
           <p className="text-white font-bold mb-1">{label}</p>
           <div className="space-y-1">
             <p className="text-blue-400">
-              <span className="font-medium">Preço:</span> {formatPrice(payload[0].value)}
+              <span className="font-medium">Price:</span> {formatPrice(payload[0].value)}
             </p>
             {itemData.volume !== undefined && (
               <p className="text-green-500">
@@ -162,10 +162,10 @@ return true;
               </p>
             )}
             <p className="text-gray-300">
-              <span className="font-medium">Data:</span> {itemData.formattedDate}
+              <span className="font-medium">Date:</span> {itemData.formattedDate}
             </p>
             <p className="text-gray-300">
-              <span className="font-medium">Hora:</span> {itemData.formattedTime}
+              <span className="font-medium">Time:</span> {itemData.formattedTime}
             </p>
           </div>
         </div>
@@ -174,32 +174,32 @@ return true;
     return null;
   };
   
-  // Se não houver dados, mostrar uma mensagem
+  // If no data, show a message
   if (filteredData.length === 0) {
     return (
       <Card className="bg-zinc-900 border border-gray-800 shadow-xl">
         <CardHeader>
         <CardTitle className="text-xl text-white">
-          <span className='text-yellow-400'>Variação de Preço</span>   ao Longo do Tempo {selectedYear && `(${selectedYear})`}
+          <span className='text-yellow-400'>Price Variation</span> Over Time {selectedYear && `(${selectedYear})`}
         </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-64 text-gray-400">
-            <p>Nenhum dado disponível para o período selecionado. Tente novamente mais tarde.</p>
+            <p>No data available for the selected period. Please try again later.</p>
           </div>
         </CardContent>
       </Card>
     );
   }
   
-  // Calcular domínio do eixo Y com margem para melhor visualização
+  // Calculate Y-axis domain with margin for better visualization
   const yDomain = [
     Math.min(minPrice, ...filteredData.map(item => item.price)) * 0.95,
     Math.max(maxPrice, ...filteredData.map(item => item.price)) * 1.05
   ];
   
   const chartData = filteredData.map((item, index) => {
-    // Calcular a variação percentual em relação ao item anterior
+    // Calculate percentage change relative to previous item
     let changePercent = 0;
     if (index > 0) {
       const prevPrice = filteredData[index - 1].price;
@@ -212,12 +212,12 @@ return true;
     };
   });
   
-  // Determinar se a tendência geral é de alta ou baixa
+  // Determine if overall trend is upward or downward
   const firstPrice = chartData.length > 0 ? chartData[0].price : 0;
   const lastPrice = chartData.length > 0 ? chartData[chartData.length - 1].price : 0;
   const trend = lastPrice >= firstPrice ? 'up' : 'down';
   
-  // Cores com base na tendência
+  // Colors based on trend
   const trendColor = trend === 'up' ? '#4CAF50' : '#F44336';
   const areaFillColor = trend === 'up' ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)';
   
@@ -226,7 +226,7 @@ return true;
       <CardHeader className="pb-0">
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl text-white">
-          <span className='text-yellow-400'>Variação de Preço</span>   ao Longo do Tempo {selectedYear && `(${selectedYear})`}
+          <span className='text-yellow-400'>Price Variation</span> Over Time {selectedYear && `(${selectedYear})`}
           </CardTitle>
           <div className="flex space-x-3">
             {onYearChange && (
@@ -235,7 +235,7 @@ return true;
                 onValueChange={onYearChange}
               >
                 <SelectTrigger className="w-[90px] h-8 bg-[#131A2B] border-gray-700 text-white">
-                  <SelectValue placeholder="Ano" />
+                  <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#131A2B] border-gray-700 text-white">
                   <SelectItem value="2025">2025</SelectItem>
@@ -248,13 +248,13 @@ return true;
               onValueChange={(value: any) => setDataRange(value)}
             >
               <SelectTrigger className="w-[120px] h-8 bg-[#131A2B] border-gray-700 text-white">
-                <SelectValue placeholder="Período" />
+                <SelectValue placeholder="Period" />
               </SelectTrigger>
               <SelectContent className="bg-[#131A2B] border-gray-700 text-white">
-                <SelectItem value="all">Tudo</SelectItem>
-                <SelectItem value="week">Última Semana</SelectItem>
-                <SelectItem value="month">Último Mês</SelectItem>
-                <SelectItem value="quarter">Último Trimestre</SelectItem>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="week">Last Week</SelectItem>
+                <SelectItem value="month">Last Month</SelectItem>
+                <SelectItem value="quarter">Last Quarter</SelectItem>
               </SelectContent>
             </Select>
             
@@ -266,7 +266,7 @@ return true;
                 onChange={() => setShowAvgLine(!showAvgLine)}
                 className="w-4 h-4 accent-blue-500"
               />
-              <label htmlFor="avgPriceLine" className="text-white text-sm">Preço Médio</label>
+              <label htmlFor="avgPriceLine" className="text-white text-sm">Average Price</label>
             </div>
             
             <div className="flex items-center space-x-2">
@@ -277,21 +277,21 @@ return true;
                 onChange={() => setShowArea(!showArea)}
                 className="w-4 h-4 accent-blue-500"
               />
-              <label htmlFor="showArea" className="text-white text-sm">Área</label>
+              <label htmlFor="showArea" className="text-white text-sm">Area</label>
             </div>
           </div>
         </div>
         <div className="text-gray-400 text-sm mt-2">
           {filteredData.length > 0 ? (
             <div className="flex flex-wrap gap-4">
-              <span>Período: {filteredData[0].formattedDate} - {filteredData[filteredData.length-1].formattedDate}</span>
-              <span>Operações: {filteredData.length}</span>
+              <span>Period: {filteredData[0].formattedDate} - {filteredData[filteredData.length-1].formattedDate}</span>
+              <span>Trades: {filteredData.length}</span>
               <span className={trend === 'up' ? 'text-green-500' : 'text-red-500'}>
-                Variação no período: {((lastPrice - firstPrice) / firstPrice * 100).toFixed(2)}%
+                Period Change: {((lastPrice - firstPrice) / firstPrice * 100).toFixed(2)}%
               </span>
             </div>
           ) : (
-            <span>Nenhum dado disponível para o período selecionado</span>
+            <span>No data available for the selected period</span>
           )}
         </div>
       </CardHeader>
@@ -335,23 +335,23 @@ return true;
                 formatter={(value) => <span style={{ color: '#ccc' }}>{value}</span>}
               />
               
-              {/* Área abaixo da linha (opcional) */}
+              {/* Optional area below the line */}
               {showArea && (
                 <Area 
                   type="monotone"
                   dataKey="price"
-                  name="Área"
+                  name="Area"
                   stroke="none"
                   fill={areaFillColor}
                   fillOpacity={0.5}
                 />
               )}
               
-              {/* Linha principal de preço */}
+              {/* Main price line */}
               <Line 
                 type="monotone" 
                 dataKey="price" 
-                name="Preço" 
+                name="Price" 
                 stroke={trendColor}
                 strokeWidth={2}
                 dot={{ r: 3, fill: trendColor, stroke: trendColor }}
@@ -359,17 +359,17 @@ return true;
                 animationDuration={1000}
               />
               
-              {/* Adicionar linha de preço médio se ativado */}
+              {/* Add average price line if enabled */}
               {showAvgLine && (
                 <ReferenceLine 
                   y={avgPrice} 
                   stroke="#2196F3"
                   strokeDasharray="3 3"
                   strokeWidth={2}
-                  // Anotação no gráfico
+                  // Chart annotation
                   label={{
                     position: 'right',
-                    value: 'Preço Médio',
+                    value: 'Average Price',
                     fill: '#2196F3',
                     fontSize: 12
                   }}
@@ -379,24 +379,24 @@ return true;
           </ResponsiveContainer>
         </div>
         
-        {/* Informações adicionais - Resumo estatístico */}
+        {/* Additional information - Statistical summary */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-[#131A2B] p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Preço Inicial</div>
+            <div className="text-gray-400 text-xs mb-1">Initial Price</div>
             <div className="text-white text-lg font-bold">
               {formatPrice(firstPrice)}
             </div>
           </div>
           
           <div className="bg-[#131A2B] p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Preço Final</div>
+            <div className="text-gray-400 text-xs mb-1">Final Price</div>
             <div className="text-white text-lg font-bold">
               {formatPrice(lastPrice)}
             </div>
           </div>
           
           <div className="bg-[#131A2B] p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Variação</div>
+            <div className="text-gray-400 text-xs mb-1">Change</div>
             <div className={trend === 'up' ? 'text-green-500 text-lg font-bold' : 'text-red-500 text-lg font-bold'}>
               {((lastPrice - firstPrice) / firstPrice * 100).toFixed(2)}%
               {trend === 'up' ? ' ▲' : ' ▼'}
@@ -404,7 +404,7 @@ return true;
           </div>
           
           <div className="bg-[#131A2B] p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Preço Médio</div>
+            <div className="text-gray-400 text-xs mb-1">Average Price</div>
             <div className="text-white text-lg font-bold">
               {formatPrice(avgPrice)}
             </div>

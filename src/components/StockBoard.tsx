@@ -14,7 +14,7 @@ import {
   ReferenceLine
 } from 'recharts';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-// Importação do arquivo JSON diretamente
+// Direct import of JSON files
 import stockInfo2025 from "../utils/trades_data2025.json";
 import stockInfo2024 from "../utils/trades_data2024.json";
 import { select } from 'motion/react-client';
@@ -23,6 +23,18 @@ import ImprovedVolumeChart from './VolumeChart';
 import RefinedVolumeChart from './VolumeChart';
 import RefinedPriceChart from './PriceChart';
 import RefinedTradeHistory from './TradeHistory';
+import { Hubot_Sans, Fragment_Mono } from 'next/font/google';
+
+const hubotSans = Hubot_Sans({
+  variable: "--font-hubot-sans",
+  subsets: ["latin"],
+});
+
+const fragmentMono = Fragment_Mono({
+  weight: "400",
+  variable: "--font-fragment-mono",
+  subsets: ["latin"],
+  });
 
 const dataSources = {
     "2024": stockInfo2024,
@@ -37,36 +49,33 @@ const TradeDashboard = () => {
   const [tab, setTab] = useState('price'); // 'price', 'volume', 'candlestick', 'combined'
 
   useEffect(() => {
-    // Função modificada para usar o stockInfo2025
-    // importado
+    // Modified function to use the imported stockInfo
     const loadData = async () => {
       try {
-
-      // Get the correct data source based on selected year
+        // Get the correct data source based on selected year
         const data = dataSources[selectedYear];
         
         const trades = data.pageProps.trades;
         
-        
-        // Ordenar pelo timestamp (do mais antigo para o mais recente)
+        // Sort by timestamp (from oldest to newest)
         const sortedTrades = [...trades].sort((a, b) => 
           new Date(a.traded_datetime) - new Date(b.traded_datetime)
         );
 
-        // Processar dados para gráfico
+        // Process data for chart visualization
         const processedTrades = sortedTrades.map(trade => ({
           id: trade.id,
           price: trade.price,
           volume: trade.volume,
           date: new Date(trade.traded_datetime),
-          formattedDate: new Date(trade.traded_datetime).toLocaleDateString('pt-BR'),
-          formattedTime: new Date(trade.traded_datetime).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-          fullDate: new Date(trade.traded_datetime).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' ' + 
-                   new Date(trade.traded_datetime).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+          formattedDate: new Date(trade.traded_datetime).toLocaleDateString('en-US'),
+          formattedTime: new Date(trade.traded_datetime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+          fullDate: new Date(trade.traded_datetime).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit' }) + ' ' + 
+                   new Date(trade.traded_datetime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
           currency: trade.currency
         }));
 
-        // Processar dados diários para velas (candlestick)
+        // Process daily data for candlestick charts
         const dailyTradeData = {};
         processedTrades.forEach(trade => {
           const dateKey = trade.formattedDate;
@@ -74,30 +83,30 @@ const TradeDashboard = () => {
           if (!dailyTradeData[dateKey]) {
             dailyTradeData[dateKey] = {
               date: dateKey,
-              open: trade.price, // Primeiro preço do dia
+              open: trade.price, // First price of the day
               high: trade.price,
               low: trade.price,
-              close: trade.price, // Último preço do dia (será substituído)
+              close: trade.price, // Last price of the day (will be replaced)
               volume: trade.volume,
               tradeCount: 1
             };
           } else {
             dailyTradeData[dateKey].high = Math.max(dailyTradeData[dateKey].high, trade.price);
             dailyTradeData[dateKey].low = Math.min(dailyTradeData[dateKey].low, trade.price);
-            dailyTradeData[dateKey].close = trade.price; // Atualizar para o mais recente
+            dailyTradeData[dateKey].close = trade.price; // Update to the most recent
             dailyTradeData[dateKey].volume += trade.volume;
             dailyTradeData[dateKey].tradeCount += 1;
           }
         });
 
-        // Converter para array e ordenar por data
+        // Convert to array and sort by date
         const dailyTradeArray = Object.values(dailyTradeData).sort((a, b) => {
-          const dateA = new Date(a.date.split('/').reverse().join('-'));
-          const dateB = new Date(b.date.split('/').reverse().join('-'));
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
           return dateA - dateB;
         });
 
-        // Adicionar variação de preço (%)
+        // Add price change percentage
         if (dailyTradeArray.length > 1) {
           dailyTradeArray.forEach((day, index) => {
             if (index > 0) {
@@ -113,8 +122,8 @@ const TradeDashboard = () => {
         setDailyData(dailyTradeArray);
         setLoading(false);
       } catch (err) {
-        console.error("Erro ao carregar dados:", err);
-        setError("Falha ao carregar dados. Por favor, tente novamente.");
+        console.error("Error loading data:", err);
+        setError("Failed to load data. Please try again.");
         setLoading(false);
       }
     };
@@ -122,14 +131,14 @@ const TradeDashboard = () => {
     loadData();
   }, [selectedYear]);
 
-  // Função para obter cor com base na variação de preço
+  // Function to determine color based on price change
   const getPriceChangeColor = (change) => {
-    if (change > 0) return "#22c55e"; // Verde para positivo
-    if (change < 0) return "#ef4444"; // Vermelho para negativo
-    return "#6b7280"; // Cinza para neutro
+    if (change > 0) return "#22c55e"; // Green for positive
+    if (change < 0) return "#ef4444"; // Red for negative
+    return "#6b7280"; // Gray for neutral
   };
 
-  // Calcular estatísticas
+  // Calculate statistics
   const stats = tradeData.length > 0 ? {
     startDate: tradeData[0].formattedDate,
     endDate: tradeData[tradeData.length - 1].formattedDate,
@@ -142,13 +151,13 @@ const TradeDashboard = () => {
     currency: dataSources[selectedYear].pageProps.currency || "GBX"
   } : null;
 
-  // Formatar preço com moeda
+  // Format price with currency
   const formatPrice = (price) => `${price} ${stats?.currency || 'GBX'}`;
 
-  // Formatar valor de volume
+  // Format volume value
   const formatVolume = (volume) => volume.toLocaleString();
 
-  // Componente de tooltip personalizado
+  // Custom tooltip component
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
@@ -170,7 +179,7 @@ const TradeDashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-500">Carregando dados...</p>
+        <p className="text-gray-500">Loading data...</p>
       </div>
     );
   }
@@ -184,13 +193,13 @@ const TradeDashboard = () => {
   }
 
   return (
-    <div className="w-full mx-auto p-4">
+    <div className={`${hubotSans.variable} ${fragmentMono.variable} w-full mx-auto p-4`}>
       {/* Loading overlay when changing years */}
       {loading && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-[#1A1A1A] p-6 rounded-lg shadow-lg flex flex-col items-center">
             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mb-3"></div>
-            <p className="text-white">Carregando dados de {selectedYear}...</p>
+            <p className="text-white">Loading {selectedYear} data...</p>
           </div>
         </div>
       )}
@@ -198,18 +207,18 @@ const TradeDashboard = () => {
       {/* Header Section */}
       <div className="mb-6">
         {/* <p className="text-gray-300 mb-1">
-          Período: {stats?.startDate} até {stats?.endDate}
+          Period: {stats?.startDate} to {stats?.endDate}
         </p> */}
         
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-white">{stats?.symbol || 'CXS'} - Análise de Negociações</h1>
+          <h1 className="text-2xl font-bold font-sans text-white">{stats?.symbol || 'CXS'} - Trade Analysis</h1>
         </div>
         
         {/* Stat Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <Card className="bg-[#0E0E0E] border-0">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Preço Atual</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Current Price</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold text-white">{formatPrice(tradeData[tradeData.length-1]?.price || 0)}</p>
@@ -227,7 +236,7 @@ const TradeDashboard = () => {
           
           <Card className="bg-[#0E0E0E] border-0">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Intervalo de Preço</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Price Range</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-xl font-bold text-white">{stats?.minPrice} - {stats?.maxPrice} {stats?.currency}</p>
@@ -237,21 +246,21 @@ const TradeDashboard = () => {
           
           <Card className="bg-[#0E0E0E] border-0">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Volume Total</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Total Volume</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-xl font-bold text-white">{stats?.totalVolume}</p>
-              <p className="text-sm text-gray-400">{stats?.tradeCount} negociações</p>
+              <p className="text-sm text-gray-400">{stats?.tradeCount} trades</p>
             </CardContent>
           </Card>
           
           <Card className="bg-[#0E0E0E] border-0">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Preço Médio</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Average Price</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-xl font-bold text-white">{formatPrice(stats?.avgPrice || 0)}</p>
-              <p className="text-sm text-gray-400">Média</p>
+              <p className="text-sm text-gray-400">Average</p>
             </CardContent>
           </Card>
         </div>
@@ -260,22 +269,22 @@ const TradeDashboard = () => {
       {/* Tab Navigation */}
       <div className="flex mb-4 border-b border-gray-800">
         <button 
-          className={`px-4 py-2 font-medium ${tab === 'price' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+          className={`px-4 py-2 font-medium font-mono ${tab === 'price' ? 'text-yellow-400 border-b-2 border-blue-600' : 'text-gray-500'}`}
           onClick={() => setTab('price')}
         >
-          Variação de Preço
+          Price Variation
         </button>
         <button 
-          className={`px-4 py-2 font-medium ${tab === 'volume' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+          className={`px-4 py-2 font-medium font-mono ${tab === 'volume' ? 'text-yellow-400 border-b-2 border-blue-600' : 'text-gray-500'}`}
           onClick={() => setTab('volume')}
         >
-          Volume de Negociação
+          Trading Volume
         </button>
         <button 
-          className={`px-4 py-2 font-medium ${tab === 'combined' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+          className={`px-4 py-2 font-medium font-mono ${tab === 'combined' ? 'text-yellow-400 border-b-2 border-blue-600' : 'text-gray-500'}`}
           onClick={() => setTab('combined')}
         >
-          Visão Combinada
+          Combined View
         </button>
       </div>
       

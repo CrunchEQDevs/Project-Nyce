@@ -60,11 +60,11 @@ export default function ContactPage() {
       {/* Header Section - Responsive adjustments */}
       <div className="flex flex-col rounded-full gap-4 sm:gap-6 items-center justify-center max-w-3xl mx-auto py-8 sm:py-16">
         <h1 className="font-mono text-zinc-300 text-3xl sm:text-4xl md:text-5xl text-center">Contact our Team</h1>
-        <p className="font-sans text-zinc-400 text-center max-w-2xl text-sm sm:text-base px-2">
+        <p className="font-mono text-zinc-400 text-center max-w-2xl text-sm sm:text-base px-2">
           Take advantage of our experience and global network. We would love to hear from you,
           so get in touch today. You can also get in touch directly through the email below.
         </p>
-        <p className="text-sm text-white mt-4 sm:mt-6">EMAIL</p>
+        <p className="text-sm text-white font-mono sm:mt-6">EMAIL</p>
         <Link href="#" className="text-white underline text-sm sm:text-base">
           enquiries@nyceint.com
         </Link>
@@ -72,7 +72,7 @@ export default function ContactPage() {
       
       {/* Formulário de contato - Responsive adjustments */}
       <div className="max-w-3xl mx-auto py-8 sm:py-12 px-2 sm:px-0">
-        <h1 className="text-yellow-400 font-mono text-3xl sm:text-4xl md:text-5xl mb-6 sm:mb-10">Message us</h1>
+        <h1 className="text-yellow-400 font-mono text-3xl sm:text-4xl md:text-5xl mb-6 sm:mb-10">Message Us</h1>
         
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-6">
           {/* Campo Nome */}
@@ -123,7 +123,7 @@ export default function ContactPage() {
           ></textarea>
           
           {/* Checkbox Termos e Condições */}
-          <div className="flex items-start gap-2 sm:gap-3 mt-2">
+          <div className="flex items-center gap-2 sm:gap-3 mt-2">
             <input
               type="checkbox"
               id="terms"

@@ -71,7 +71,7 @@ export default function AppHeader() {
         {/* Right side with contact button (on desktop) or mobile menu toggle (on mobile) */}
         <div>
           {!isMobile ? (
-            <Link href={"#"} className="bg-white text-black  hover:bg-gray-700 hover:text-white rounded-full px-5 p-2 text-sm">
+            <Link href={"/contact"} className="bg-white text-black  hover:bg-gray-700 hover:text-white rounded-full px-5 p-2 text-sm">
               Get in Touch
             </Link>
           ) : (

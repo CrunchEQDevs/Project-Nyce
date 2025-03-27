@@ -22,38 +22,38 @@ const ImprovedCombinedChart = ({
   const [showAvgLine, setShowAvgLine] = useState(true);
   const [processedData, setProcessedData] = useState([]);
   
-  // Função para formatar valor
+  // Format value functions
   const formatPrice = (price) => `${price.toFixed(3)} ${currency}`;
   const formatVolume = (volume) => volume.toLocaleString();
   
-  // Processar dados recebidos
+  // Process received data
   useEffect(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
-      console.warn("Dados inválidos recebidos no ImprovedCombinedChart:", data);
+      console.warn("Invalid data received in ImprovedCombinedChart:", data);
       setProcessedData([]);
       return;
     }
 
     try {
-      // Converter os dados recebidos para o formato necessário
+      // Convert received data to the required format
       const enhancedData = data.map(day => {
-        // Extrair mês da data no formato DD/MM/YYYY (formato brasileiro)
+        // Extract month from date in format MM/DD/YYYY (international format)
         let month = 1;
         try {
           if (day.date && day.date.includes('/')) {
-            // Formato brasileiro DD/MM/YYYY
+            // Date format MM/DD/YYYY
             month = parseInt(day.date.split('/')[1], 10);
           }
         } catch (e) {
-          console.warn("Erro ao extrair mês da data:", day.date, e);
+          console.warn("Error extracting month from date:", day.date, e);
         }
 
         const quarter = Math.ceil(month / 3);
 
-        // Data no formato usado para display
+        // Date in display format
         const displayDate = day.date 
           ? day.date.split('/').slice(0, 2).join('/') 
-          : 'Data desconhecida';
+          : 'Unknown Date';
 
         return {
           ...day,
@@ -65,17 +65,17 @@ const ImprovedCombinedChart = ({
       
       setProcessedData(enhancedData);
     } catch (error) {
-      console.error("Erro ao processar dados no ImprovedCombinedChart:", error);
+      console.error("Error processing data in ImprovedCombinedChart:", error);
       setProcessedData([]);
     }
   }, [data]);
   
-  // Cálculo de estatísticas
+  // Calculate statistics
   const avgPrice = processedData.length > 0 
     ? processedData.reduce((sum, day) => sum + day.close, 0) / processedData.length 
     : 0;
   
-  // Filtrar dados com base no período selecionado
+  // Filter data based on selected period
   const filteredData = processedData.filter(day => {
     if (dataRange === 'all') return true;
     if (dataRange === 'q1') return day.quarter === 1;
@@ -83,7 +83,7 @@ const ImprovedCombinedChart = ({
     return true;
   });
   
-  // Tooltip personalizado
+  // Custom tooltip
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
@@ -91,28 +91,28 @@ const ImprovedCombinedChart = ({
           <p className="text-white font-bold mb-1">{label}</p>
           <div className="space-y-1">
             <p className="text-blue-400">
-              <span className="font-medium">Abertura:</span> {formatPrice(payload[2]?.payload.open || 0)}
+              <span className="font-medium">Open:</span> {formatPrice(payload[2]?.payload.open || 0)}
             </p>
             <p className="text-green-400">
-              <span className="font-medium">Alta:</span> {formatPrice(payload[2]?.payload.high || 0)}
+              <span className="font-medium">High:</span> {formatPrice(payload[2]?.payload.high || 0)}
             </p>
             <p className="text-red-400">
-              <span className="font-medium">Baixa:</span> {formatPrice(payload[2]?.payload.low || 0)}
+              <span className="font-medium">Low:</span> {formatPrice(payload[2]?.payload.low || 0)}
             </p>
             <p className="text-blue-400">
-              <span className="font-medium">Fechamento:</span> {formatPrice(payload[2]?.payload.close || 0)}
+              <span className="font-medium">Close:</span> {formatPrice(payload[2]?.payload.close || 0)}
             </p>
             <p className="text-green-500">
               <span className="font-medium">Volume:</span> {formatVolume(payload[1]?.value || 0)}
             </p>
             {payload[2]?.payload.change !== undefined && (
               <p className={payload[2]?.payload.change >= 0 ? "text-green-400" : "text-red-400"}>
-                <span className="font-medium">Variação:</span> {(payload[2]?.payload.change || 0).toFixed(2)}%
+                <span className="font-medium">Change:</span> {(payload[2]?.payload.change || 0).toFixed(2)}%
               </p>
             )}
             {payload[2]?.payload.tradeCount !== undefined && (
               <p className="text-gray-300">
-                <span className="font-medium">Negociações:</span> {payload[2]?.payload.tradeCount || 0}
+                <span className="font-medium">Trades:</span> {payload[2]?.payload.tradeCount || 0}
               </p>
             )}
           </div>
@@ -129,16 +129,16 @@ const ImprovedCombinedChart = ({
       ] 
     : [0, 1];
   
-  // Se não houver dados, mostrar uma mensagem
+  // If no data, show a message
   if (filteredData.length === 0) {
     return (
       <Card className="bg-gray-900 border border-gray-800 shadow-xl">
         <CardHeader>
-          <CardTitle className="text-yellow-400">Visão Combinada: Preço e Volume</CardTitle>
+          <CardTitle className="text-yellow-400">Combined View: Price and Volume</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-64 text-gray-400">
-            <p>Nenhum dado disponível para o período selecionado. Verifique se os dados estão sendo passados corretamente.</p>
+            <p>No data available for the selected period. Please verify that data is being passed correctly.</p>
           </div>
         </CardContent>
       </Card>
@@ -150,7 +150,7 @@ const ImprovedCombinedChart = ({
       <CardHeader className="pb-0">
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl font-sans text-white">
-           <span className='text-xl font-sans text-yellow-400'>Visão Combinada: </span> Preço e Volume {selectedYear && `(${selectedYear})`}
+           <span className='text-xl font-sans text-yellow-400'>Combined View: </span> Price and Volume {selectedYear && `(${selectedYear})`}
           </CardTitle>
           <div className="flex space-x-3">
             {onYearChange && (
@@ -159,7 +159,7 @@ const ImprovedCombinedChart = ({
                 onValueChange={onYearChange}
               >
                 <SelectTrigger className="w-[90px] h-8 bg-gray-800 border-gray-700 text-white">
-                  <SelectValue placeholder="Ano" />
+                  <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-800 border-gray-700 text-white">
                   <SelectItem value="2025">2025</SelectItem>
@@ -172,12 +172,12 @@ const ImprovedCombinedChart = ({
               onValueChange={setDataRange}
             >
               <SelectTrigger className="w-[120px] h-8 bg-gray-800 border-gray-700 text-white">
-                <SelectValue placeholder="Período" />
+                <SelectValue placeholder="Period" />
               </SelectTrigger>
               <SelectContent className="bg-gray-800 border-gray-700 text-white">
-                <SelectItem value="all">Tudo</SelectItem>
+                <SelectItem value="all">All</SelectItem>
                 <SelectItem value="q1">Q1 (Jan-Mar)</SelectItem>
-                <SelectItem value="q2">Q2 (Abr-Jun)</SelectItem>
+                <SelectItem value="q2">Q2 (Apr-Jun)</SelectItem>
               </SelectContent>
             </Select>
             
@@ -189,21 +189,21 @@ const ImprovedCombinedChart = ({
                 onChange={() => setShowAvgLine(!showAvgLine)}
                 className="w-4 h-4 accent-blue-500"
               />
-              <label htmlFor="avgLine" className="text-white text-sm">Preço Médio</label>
+              <label htmlFor="avgLine" className="text-white text-sm">Average Price</label>
             </div>
           </div>
         </div>
         <div className="text-gray-400 text-sm mt-2">
           {filteredData.length > 0 ? (
             <div className="flex flex-wrap gap-4">
-              <span>Período: {filteredData[0].date} - {filteredData[filteredData.length-1].date}</span>
+              <span>Period: {filteredData[0].date} - {filteredData[filteredData.length-1].date}</span>
               {filteredData[0].tradeCount !== undefined && (
-                <span>Total de negociações: {filteredData.reduce((sum, day) => sum + day.tradeCount, 0)}</span>
+                <span>Total trades: {filteredData.reduce((sum, day) => sum + day.tradeCount, 0)}</span>
               )}
-              <span>Preço médio: {formatPrice(avgPrice)}</span>
+              <span>Average price: {formatPrice(avgPrice)}</span>
             </div>
           ) : (
-            <span>Nenhum dado disponível para o período selecionado</span>
+            <span>No data available for the selected period</span>
           )}
         </div>
       </CardHeader>
@@ -262,14 +262,14 @@ const ImprovedCombinedChart = ({
                 yAxisId="left"
                 type="monotone"
                 dataKey="close"
-                name="Preço (Fechamento)"
+                name="Price (Close)"
                 stroke="#2196F3"
                 fill="#2196F3"
                 fillOpacity={0.2}
                 activeDot={{ r: 8, strokeWidth: 2, stroke: '#fff' }}
               />
               
-              {/* Adicionar linha de preço médio se ativado */}
+              {/* Add average price line if enabled */}
               {showAvgLine && (
                 <ReferenceLine 
                   yAxisId="left" 
@@ -279,7 +279,7 @@ const ImprovedCombinedChart = ({
                   strokeWidth={2}
                 >
                   <Label 
-                    value="Preço Médio" 
+                    value="Average Price" 
                     position="insideTopRight"
                     fill="#FF9800"
                   />
@@ -289,31 +289,31 @@ const ImprovedCombinedChart = ({
           </ResponsiveContainer>
         </div>
         
-        {/* Informações adicionais - Resumo estatístico */}
+        {/* Additional information - Statistical summary */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-gray-800 p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Baixa (Mínima do Período)</div>
+            <div className="text-gray-400 text-xs mb-1">Low (Period Minimum)</div>
             <div className="text-white text-lg font-bold">
               {formatPrice(Math.min(...filteredData.map(d => d.low)))}
             </div>
           </div>
           
           <div className="bg-gray-800 p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Alta (Máxima do Período)</div>
+            <div className="text-gray-400 text-xs mb-1">High (Period Maximum)</div>
             <div className="text-white text-lg font-bold">
               {formatPrice(Math.max(...filteredData.map(d => d.high)))}
             </div>
           </div>
           
           <div className="bg-gray-800 p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Volume Total</div>
+            <div className="text-gray-400 text-xs mb-1">Total Volume</div>
             <div className="text-white text-lg font-bold">
               {formatVolume(filteredData.reduce((sum, day) => sum + day.volume, 0))}
             </div>
           </div>
           
           <div className="bg-gray-800 p-3 rounded-lg">
-            <div className="text-gray-400 text-xs mb-1">Variação no Período</div>
+            <div className="text-gray-400 text-xs mb-1">Period Change</div>
             {filteredData.length > 1 && (
               <div className={
                 filteredData[filteredData.length-1].close > filteredData[0].open 
