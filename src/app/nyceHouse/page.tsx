@@ -122,19 +122,19 @@ export default function NyceHousePage() {
       <div className="flex flex-col gap-12 items-center justify-center py-20 w-full px-8 md:px-16 lg:px-24 xl:px-36">
         {/* Galeria de imagens */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
-          <div className="aspect-square overflow-hidden">
+          <div className="aspect-square rounded overflow-hidden">
            <Image 
              src="/game-image-1.jpg"
              alt="Game Image 1"
              width={300}
              height={300}
-             className='object-cover w-full h-full'
+             className='object-cover  w-full h-full'
              >
 
            </Image>
           </div>
           
-          <div className="aspect-square overflow-hidden">
+          <div className="aspect-square rounded overflow-hidden">
           <Image 
              src="/game-image-1.jpg"
              alt="Game Image 1"
@@ -146,7 +146,7 @@ export default function NyceHousePage() {
            </Image>
           </div>
           
-          <div className="aspect-square overflow-hidden">
+          <div className="aspect-square rounded overflow-hidden">
           <Image 
              src="/game-image-1.jpg"
              alt="Game Image 1"
@@ -158,7 +158,7 @@ export default function NyceHousePage() {
            </Image>
           </div>
           
-          <div className="aspect-square overflow-hidden">
+          <div className="aspect-square rounded overflow-hidden">
           <Image 
              src="/game-image-1.jpg"
              alt="Game Image 1"

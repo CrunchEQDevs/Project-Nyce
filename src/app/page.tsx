@@ -146,6 +146,9 @@ export default function Home() {
         </motion.div>
       </div>
 
+     {/* <div className="min-h-screen bg-black flex items-center justify-center">
+      <meta httpEquiv="refresh" content="0;url=/marketplace-categories" />
+    </div> */}
       {/* First Content Section - iGaming & Sports Betting */}
       <div ref={iGamingRef} className="flex w-full max-w-6xl mx-auto px-4 py-20 scroll-mt-20">
         {/* Left column with the numbered list */}
