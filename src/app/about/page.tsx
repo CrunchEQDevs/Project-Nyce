@@ -1,5 +1,4 @@
 'use client'
-
 import { decodeAction } from "next/dist/server/app-render/entry-base";
 import { Hubot_Sans, Fragment_Mono } from "next/font/google";
 import { motion } from "framer-motion";
@@ -8,24 +7,18 @@ import { useRef } from "react";
 import Team, {TeamMemberData} from "@/components/TeamMembers";
 
 const hubotSans = Hubot_Sans({
-    variable: "--font-hubot-sans",
-    subsets: ["latin"],
+  variable: "--font-hubot-sans",
+  subsets: ["latin"],
+})
 
-})
 const fragmentMono = Fragment_Mono({
-    weight: "400",
-    variable: "--font-fragment-mono",
-    subsets: ["latin"],
+  weight: "400",
+  variable: "--font-fragment-mono",
+  subsets: ["latin"],
 })
-const scrollToSection = (ref) => {
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-  // Dados dos membros da equipe
+
+// Removendo a função de scrollToSection e usando uma abordagem mais simples
+
 // Dados dos membros da equipe
 const teamMembers: TeamMemberData[] = [
   {
@@ -113,15 +106,15 @@ const teamMembers: TeamMemberData[] = [
     isAdvisory: true
   }
 ];
-export default function About() {
-    const partners = useRef(null);
 
-    return (
-        <div className={`${hubotSans.variable} ${fragmentMono.variable}  bg-black`}>
-          
-        {/* Hero Section - center aligned */}
+export default function About() {
+  const partnersId = "partners-section";
+  
+  return (
+    <div className={`${hubotSans.variable} ${fragmentMono.variable} bg-black`}>
+      {/* Hero Section - center aligned */}
       <div className="flex flex-col items-center justify-center text-center pt-32 pb-24">
-        <motion.h1 
+        <motion.h1
           className="text-white text-6xl font-sans mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -129,7 +122,7 @@ export default function About() {
         >
           <span className="text-yellow-400">Your Global Sales &</span> Strategic <br />Advisory Partner
         </motion.h1>
-        <motion.div 
+        <motion.div
           className="flex flex-col items-center max-w-3xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -142,7 +135,7 @@ export default function About() {
             Talk to us if you're interested in any of the products below, or looking for something not listed.
           </p>
           <div className="flex space-x-4">
-            <motion.a 
+            <motion.a
               href="#"
               className="bg-white text-black hover:bg-gray-200 rounded-full px-8 py-3 font-medium"
               whileHover={{ scale: 1.05 }}
@@ -152,9 +145,14 @@ export default function About() {
               Get in Touch
             </motion.a>
             <motion.button
-              onClick={() => scrollToSection(partners)}
+              onClick={() => {
+                document.getElementById(partnersId)?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
               className="bg-zinc-700 hover:bg-zinc-600 text-white rounded-full px-8 py-3 flex items-center justify-center space-x-2 transition-colors"
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 backgroundColor: "#4B5563" // Slightly lighter gray on hover
               }}
@@ -164,8 +162,8 @@ export default function About() {
               <span>Learn More</span>
               <motion.div
                 animate={{ y: [0, 5, 0] }}
-                transition={{ 
-                  repeat: Infinity, 
+                transition={{
+                  repeat: Infinity,
                   duration: 1.5,
                   ease: "easeInOut"
                 }}
@@ -173,29 +171,26 @@ export default function About() {
                 <ArrowDown size={18} />
               </motion.div>
             </motion.button>
-            </div>
+          </div>
         </motion.div>
+      </div>
+      <div id={partnersId} className="flex flex-col items-center justify-center bg-[#0e0e0e] text-center pt-32 pb-24">
+        <div className="w-4/5">
+          <p className="font-mono text-white text-sm">NYCE represents a select number of intelligent, success-driven technologies and services that deliver measurable revenue growth and operational efficiency to gaming companies. Via our global network, NYCE accelerates the sales process for the companies we represent, facilitating conversations at only the highest levels.</p>
         </div>
-        <div ref={partners} className="flex flex-col items-center justify-center bg-[#0e0e0e] text-center pt-32 pb-24">
-  <div className="w-4/5">
-    <p className="font-mono text-white text-sm">NYCE represents a select number of intelligent, success-driven technologies and services that deliver measurable revenue growth and operational efficiency to gaming companies. Via our global network, NYCE accelerates the sales process for the companies we represent, facilitating conversations at only the highest levels.</p>
-  </div>
-  
-  <div className="flex flex-row w-4/5 justify-between items-start mt-16">
-    <div className="w-2/5">
-      <p className="text-white text-sm font-sans text-left">We pride ourselves on seeing synergies across our network and capitalizing on them for partners and clients alike.</p>
-    </div>
-    
-    <div className="h-40 w-px bg-zinc-700"></div>
-    
-    <div className="w-2/5">
-      <p className="text-white text-sm font-mono text-left"><span className="text-yellow-400">"</span>We're motivated by working with partners and clients to build global success stories.<span className="text-yellow-400">"</span></p>
-      <p className="text-white mt-6 text-left">Harmen Brenninkmeijer</p>
-      <p className="text-zinc-500 text-xs tracking-wider text-left">MANAGING PARTNER</p>
-    </div>
-  </div>
+        <div className="flex flex-row w-4/5 justify-between items-start mt-16">
+          <div className="w-2/5">
+            <p className="text-white text-sm font-sans text-left">We pride ourselves on seeing synergies across our network and capitalizing on them for partners and clients alike.</p>
+          </div>
+          <div className="h-40 w-px bg-zinc-700"></div>
+          <div className="w-2/5">
+            <p className="text-white text-sm font-mono text-left"><span className="text-yellow-400">"</span>We're motivated by working with partners and clients to build global success stories.<span className="text-yellow-400">"</span></p>
+            <p className="text-white mt-6 text-left">Harmen Brenninkmeijer</p>
+            <p className="text-zinc-500 text-xs tracking-wider text-left">MANAGING PARTNER</p>
+          </div>
+        </div>
         <Team teamMembers={teamMembers} />
-</div>
-</div>
-);
+      </div>
+    </div>
+  );
 }

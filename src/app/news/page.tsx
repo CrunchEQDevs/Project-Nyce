@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { ArrowDown } from "lucide-react"
 import { Hubot_Sans, Fragment_Mono } from "next/font/google"
 import { motion } from "framer-motion";
@@ -15,14 +15,14 @@ const fragmentMono = Fragment_Mono({
   variable: "--font-fragment-mono",
   subsets: ["latin"],
 })
-const scrollToSection = (ref) => {
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+const scrollToSection = (ref: RefObject<HTMLElement | null>) => {
+  if (ref && ref.current) {
+    ref.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+};
 export default function NewsPage(){
   // Estado para armazenar a categoria selecionada e o número de itens visíveis
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -31,7 +31,7 @@ export default function NewsPage(){
   
 
   // Função para lidar com a mudança de categoria
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = (category:string) => {
     setSelectedCategory(category);
     // Resetar o número de itens visíveis ao mudar de categoria
     setVisibleItems(6);

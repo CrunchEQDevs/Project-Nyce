@@ -12,11 +12,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
 interface TradeData {
   id: string;
   price: number;
   volume: number;
   date: Date;
+  traded_datetime?: string; // Adicionada esta propriedade
   formattedDate: string;
   formattedTime: string;
   fullDate: string;

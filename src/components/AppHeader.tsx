@@ -7,6 +7,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function AppHeader() {
   // Track window width to control responsiveness
@@ -28,7 +29,7 @@ export default function AppHeader() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo section */}
         <div className="flex items-center">
-          <h1 className="text-4xl md:text-6xl font-bold">
+          <h1  className="text-4xl md:text-6xl font-bold">
             <span className="text-yellow-400">N</span>
             <span className="text-white">YCE</span>
           </h1>
@@ -83,33 +84,33 @@ export default function AppHeader() {
               </SheetTrigger>
               <SheetContent side="left" className="bg-black w-[250px] p-0">
                 <div className="flex flex-col space-y-2 p-4">
-                  <Link href={"/"} className="bg-zinc-800 hover:bg-zinc-700 text-white rounded-full px-4 py-2 text-sm text-center">
-                    Home
-                  </Link>
-                  <Link href={"/products&services"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    Products & Services
-                  </Link>
-                  <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    NYCE STVs
-                  </Link>
-                  <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    Teams
-                  </Link>
-                  <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    Investors
-                  </Link>
-                  <Link href={"#"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    News
-                  </Link>
-                  <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    Venture studio
-                  </Link>
-                  <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                    NYCE House
-                  </Link>
-                  <Link href={"#"} className="bg-white text-black hover:bg-gray-200 rounded-full px-4 py-2 text-sm text-center mt-4">
-                    Get in Touch
-                  </Link>
+                  <Link href={"/"} className=" hover:bg-zinc-700 text-white rounded-full px-4 py-2 text-sm text-center">
+                Home
+              </Link>
+              <Link href={"/products"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                Marketplace
+              </Link>
+              <Link href={"/stv"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                STVs
+              </Link>
+              <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                Teams
+              </Link>
+              {/* <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                Stock
+              </Link> */}
+              <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center ">
+                Investors
+              </Link>
+              <Link href={"/news"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                News
+              </Link>
+              <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                Venture studio
+              </Link>
+              <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                NYCE House
+              </Link>
                 </div>
               </SheetContent>
             </Sheet>

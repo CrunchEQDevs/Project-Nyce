@@ -1,8 +1,9 @@
-'use client'
-import { Button } from "@/components/ui/button";
+'use client';
+
+import React, { useState } from 'react';
 import { Hubot_Sans, Fragment_Mono } from "next/font/google";
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link';
+import { Button } from "@/components/ui/button";
 
 const hubotSans = Hubot_Sans({
   variable: "--font-hubot-sans",
@@ -15,31 +16,39 @@ const fragmentMono = Fragment_Mono({
   subsets: ["latin"],
 });
 
-export default function ContactPage() {
-  // Estados para gerenciar os valores do formulário
+export default function Contact() {
+  // Estado para os dados do formulário
   const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    message: "",
+    name: '',
+    company: '',
+    email: '',
+    message: '',
     agreeToTerms: false
   });
-  
+
   // Manipulador para atualizar os estados conforme os campos são alterados
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const target = e.target;
+    const name = target.name;
+    const value = target instanceof HTMLInputElement && target.type === "checkbox" 
+      ? target.checked 
+      : target.value;
+    
     setFormData(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value
+      [name]: value
     }));
   };
-  
+
   // Manipulador para o envio do formulário
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aqui você adicionaria a lógica para enviar os dados para sua API
-    console.log("Form data:", formData);
-    // Exemplo de como você poderia enviar os dados usando a API Routes do Next.js
+    
+    // Lógica para enviar os dados do formulário
+    console.log('Dados do formulário:', formData);
+    
+    // Aqui você pode adicionar a lógica para enviar os dados para um servidor
+    // Exemplo:
     // try {
     //   const response = await fetch('/api/contact', {
     //     method: 'POST',
@@ -48,10 +57,23 @@ export default function ContactPage() {
     //     },
     //     body: JSON.stringify(formData),
     //   });
-    //   const data = await response.json();
-    //   // Tratar a resposta
+    //   
+    //   if (response.ok) {
+    //     alert('Mensagem enviada com sucesso!');
+    //     // Resetar o formulário
+    //     setFormData({
+    //       name: '',
+    //       company: '',
+    //       email: '',
+    //       message: '',
+    //       agreeToTerms: false
+    //     });
+    //   } else {
+    //     alert('Erro ao enviar mensagem. Por favor, tente novamente.');
+    //   }
     // } catch (error) {
-    //   console.error('Error submitting the form:', error);
+    //   console.error('Erro:', error);
+    //   alert('Erro ao enviar mensagem. Por favor, tente novamente.');
     // }
   };
 
@@ -83,7 +105,7 @@ export default function ContactPage() {
             onChange={handleChange}
             placeholder="Your Name"
             className="bg-zinc-900 border-none rounded-md p-3 sm:p-4 text-white font-mono text-sm sm:text-base
-                     focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
+                      focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
             required
           />
           
@@ -95,7 +117,7 @@ export default function ContactPage() {
             onChange={handleChange}
             placeholder="Company Name"
             className="bg-zinc-900 border-none rounded-md p-3 sm:p-4 text-white font-mono text-sm sm:text-base
-                     focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
+                      focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
           />
           
           {/* Campo Email */}
@@ -106,7 +128,7 @@ export default function ContactPage() {
             onChange={handleChange}
             placeholder="Email Address"
             className="bg-zinc-900 border-none rounded-md p-3 sm:p-4 text-white font-mono text-sm sm:text-base
-                     focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
+                      focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
             required
           />
           
@@ -118,7 +140,7 @@ export default function ContactPage() {
             placeholder="Message"
             rows={6}
             className="bg-zinc-900 border-none rounded-md p-3 sm:p-4 text-white font-mono text-sm sm:text-base
-                     focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all resize-none"
+                      focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all resize-none"
             required
           ></textarea>
           

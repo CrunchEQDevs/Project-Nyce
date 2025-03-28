@@ -1,6 +1,6 @@
 'use client'
 import { Hubot_Sans, Fragment_Mono } from "next/font/google";
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import WaveBackground from "@/components/created/WaveBackground";
@@ -30,7 +30,7 @@ export default function Home() {
   const enterpriseRef = useRef(null);
 
   // Function to handle smooth scrolling
-  const scrollToSection = (ref) => {
+const scrollToSection = (ref: RefObject<HTMLElement | null>) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ 
         behavior: 'smooth',
@@ -112,7 +112,7 @@ export default function Home() {
           </p>
           <div className="flex space-x-4">
             <motion.a 
-              href="#"
+              href="/contact"
               className="bg-white text-black hover:bg-gray-200 rounded-full px-8 py-3 font-medium"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -581,6 +581,136 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
+      
+      {/* Improved mobile responsiveness CSS */}
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          /* Hero section */
+          .flex.flex-col.items-center.justify-center.text-center.pt-32.pb-24 {
+            padding-top: 64px;
+            padding-bottom: 48px;
+          }
+          
+          .text-white.text-6xl.font-sans.mb-8 {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+          }
+          
+          .font-mono.text-white.mb-10 {
+            margin-bottom: 32px;
+          }
+          
+          .flex.space-x-4 {
+            flex-direction: column;
+            gap: 16px;
+            margin: 0 16px;
+          }
+          
+          .flex.space-x-4 > * {
+            margin-left: 0 !important;
+            width: 100%;
+          }
+          
+          /* Content sections */
+          .flex.w-full.max-w-6xl.mx-auto.px-4.py-20,
+          .flex.flex-row-reverse.w-full.max-w-6xl.mx-auto.px-4.py-20,
+          .flex.w-full.max-w-6xl.mx-auto.px-4.py-20 > *,
+          .flex.flex-row-reverse.w-full.max-w-6xl.mx-auto.px-4.py-20 > * {
+            flex-direction: column;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+          }
+          
+          .w-1/2 {
+            width: 100%;
+          }
+
+          /* Section padding */
+          .flex.w-full.max-w-6xl.mx-auto.px-4.py-20,
+          .flex.flex-row-reverse.w-full.max-w-6xl.mx-auto.px-4.py-20 {
+            padding-top: 64px;
+            padding-bottom: 64px;
+          }
+          
+          /* Backgrounds and lists */
+          .w-1/2.relative.flex.items-center.justify-center {
+            min-height: 320px;
+            margin-bottom: 40px;
+            order: -1; /* Place backgrounds at the top */
+          }
+          
+          /* Title text size adjustments */
+          .text-white.text-7xl.font-sans.leading-tight.mb-6 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+          }
+          
+          /* Section content */
+          .w-1/2.pl-12,
+          .w-1/2.pl-16,
+          .w-1/2.pr-12 {
+            padding: 0 16px;
+          }
+          
+          /* Casino buttons */
+          .grid.gap-4 {
+            padding: 0 16px;
+          }
+          
+          .rounded-full.border.border-gray-700.py-3.px-6.text-white.font-mono {
+            font-size: 0.9rem;
+            padding: 10px 20px;
+          }
+          
+          /* List items better spacing */
+          .relative.z-10.space-y-5.ml-4 {
+            margin: 0 24px;
+            padding: 16px 0;
+          }
+          
+          /* Adjust font size for better reading on mobile */
+          .text-white.mb-8.leading-relaxed {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+          }
+          
+          /* Ensure section titles are properly positioned */
+          .text-white.uppercase.font-mono.tracking-wide.mb-2,
+          .text-white.uppercase.font-\\[var\\(--font-fragment-mono\\)\\].tracking-wide.mb-2 {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+          }
+          
+          /* Reset margins for explore links */
+          .max-w-xl {
+            max-width: 100%;
+            margin-bottom: 40px;
+          }
+          
+          /* "Explore our partners" link - better position */
+          .text-white.inline-flex.items-center.font-mono.border-b.border-white.pb-1,
+          .text-white.inline-flex.items-center.font-\\[var\\(--font-fragment-mono\\)\\].border-b.border-white.pb-1 {
+            display: flex;
+            margin-top: 16px;
+          }
+          
+          /* Fix for flex-row-reverse sections */
+          .flex.flex-row-reverse.w-full.max-w-6xl.mx-auto.px-4.py-20 > .w-1/2:nth-child(2) {
+            order: 1;
+            padding: 0 16px;
+          }
+          
+          /* Better height for background elements */
+          .absolute.inset-0.w-full.h-full {
+            height: 100%;
+          }
+        }
+      `}</style>
       
       {/* Footer or additional sections would go here */}
     </main>

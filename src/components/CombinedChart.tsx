@@ -12,19 +12,50 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const ImprovedCombinedChart = ({ 
+// Define interfaces para os dados
+interface DayData {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  tradeCount?: number;
+  change?: number;
+  displayDate?: string;
+  month?: number;
+  quarter?: number;
+}
+
+interface TooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    payload: DayData;
+  }>;
+  label?: string;
+}
+
+interface CombinedChartProps {
+  data: DayData[];
+  selectedYear: string | number;
+  onYearChange?: (year: string) => void;
+  currency?: string;
+}
+
+const ImprovedCombinedChart: React.FC<CombinedChartProps> = ({ 
   data, 
   selectedYear, 
   onYearChange = null,
   currency = "GBX" 
 }) => {
-  const [dataRange, setDataRange] = useState('all'); // 'all', 'q1', 'q2'
-  const [showAvgLine, setShowAvgLine] = useState(true);
-  const [processedData, setProcessedData] = useState([]);
+  const [dataRange, setDataRange] = useState<string>('all'); // 'all', 'q1', 'q2'
+  const [showAvgLine, setShowAvgLine] = useState<boolean>(true);
+  const [processedData, setProcessedData] = useState<DayData[]>([]);
   
   // Format value functions
-  const formatPrice = (price) => `${price.toFixed(3)} ${currency}`;
-  const formatVolume = (volume) => volume.toLocaleString();
+  const formatPrice = (price: number): string => `${price.toFixed(3)} ${currency}`;
+  const formatVolume = (volume: number): string => volume.toLocaleString();
   
   // Process received data
   useEffect(() => {
@@ -42,7 +73,7 @@ const ImprovedCombinedChart = ({
         try {
           if (day.date && day.date.includes('/')) {
             // Date format MM/DD/YYYY
-            month = parseInt(day.date.split('/')[1], 10);
+            month = parseInt(day.date.split('/')[0], 10);
           }
         } catch (e) {
           console.warn("Error extracting month from date:", day.date, e);
@@ -84,7 +115,7 @@ const ImprovedCombinedChart = ({
   });
   
   // Custom tooltip
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-gray-900 p-3 border border-gray-700 rounded-md shadow-lg">
@@ -155,7 +186,7 @@ const ImprovedCombinedChart = ({
           <div className="flex space-x-3">
             {onYearChange && (
               <Select 
-                value={selectedYear} 
+                value={String(selectedYear)} 
                 onValueChange={onYearChange}
               >
                 <SelectTrigger className="w-[90px] h-8 bg-gray-800 border-gray-700 text-white">
@@ -198,7 +229,7 @@ const ImprovedCombinedChart = ({
             <div className="flex flex-wrap gap-4">
               <span>Period: {filteredData[0].date} - {filteredData[filteredData.length-1].date}</span>
               {filteredData[0].tradeCount !== undefined && (
-                <span>Total trades: {filteredData.reduce((sum, day) => sum + day.tradeCount, 0)}</span>
+                <span>Total trades: {filteredData.reduce((sum, day) => sum + (day.tradeCount || 0), 0)}</span>
               )}
               <span>Average price: {formatPrice(avgPrice)}</span>
             </div>
@@ -228,7 +259,7 @@ const ImprovedCombinedChart = ({
                 yAxisId="left"
                 orientation="left"
                 domain={yDomain}
-                tickFormatter={value => value.toFixed(2)}
+                tickFormatter={(value) => value.toFixed(2)}
                 tick={{ fill: '#ccc' }}
                 tickLine={{ stroke: '#666' }}
                 axisLine={{ stroke: '#666' }}
@@ -237,7 +268,7 @@ const ImprovedCombinedChart = ({
                 yAxisId="right"
                 orientation="right"
                 domain={[0, 'auto']}
-                tickFormatter={value => `${(value/1000).toFixed(0)}k`}
+                tickFormatter={(value) => `${(value/1000).toFixed(0)}k`}
                 tick={{ fill: '#ccc' }}
                 tickLine={{ stroke: '#666' }}
                 axisLine={{ stroke: '#666' }}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
- BarChart, Bar, XAxis, YAxis, CartesianGrid,
+ BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell,
  Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label
 } from 'recharts';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -169,6 +169,13 @@ const RefinedVolumeChart: React.FC<RefinedVolumeChartProps> = ({
     );
   }
 
+  // Function to determine bar color based on volume
+  const getBarColor = (volume: number): string => {
+    const ratio = volume / maxVolume;
+    // Subtle color variation, from dark green to light green
+    return `rgb(0, ${Math.floor(140 + (ratio * 80))}, ${Math.floor(60 + (ratio * 100))})`;
+  };
+
   return (
     <Card className="bg-zinc-900 border border-gray-800 shadow-xl">
       <CardHeader className="pb-0">
@@ -275,13 +282,16 @@ const RefinedVolumeChart: React.FC<RefinedVolumeChartProps> = ({
                 name="Volume"
                 fillOpacity={0.9}
                 barSize={30}
-                // More sophisticated bar coloring
-                fill={(entry: DailyTradeData) => {
-                  const ratio = entry.volume / maxVolume;
-                  // Subtle color variation, from dark green to light green
-                  return `rgb(0, ${Math.floor(140 + (ratio * 80))}, ${Math.floor(60 + (ratio * 100))})`;
-                }}
-              />
+                fill="#4CAF50"  // Default fill that will be overridden by Cell
+              >
+                {/* Use Cells to color bars individually */}
+                {filteredData.map((entry, index) => (
+                  <Cell 
+                    key={`cell-${index}`}
+                    fill={getBarColor(entry.volume)}
+                  />
+                ))}
+              </Bar>
               {/* Add average volume line if enabled */}
               {showAvgLine && (
                 <ReferenceLine

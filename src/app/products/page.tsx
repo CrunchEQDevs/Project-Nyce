@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 export default function ProductsCategories() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState(2);
+  const [selectedCategory, setSelectedCategory] = useState();
   
   const categories = [
     { id: 1, name: 'iGaming & Sports Betting' },
@@ -16,7 +16,7 @@ export default function ProductsCategories() {
     { id: 7, name: 'Data & Analytics' }
   ];
   
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category:any) => {
     setSelectedCategory(category.id);
     // Navigation to products-and-services (this matches your folder structure)
     router.push(`/products-and-services?category=${encodeURIComponent(category.name)}`);

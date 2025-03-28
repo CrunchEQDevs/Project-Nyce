@@ -20,11 +20,11 @@ export default function ViryaPage() {
   return(
     <div className={`${hubotSans.variable} ${fragmentMono.variable} bg-[#0E0E0E]`}>
       {/* Seções anteriores preservadas */}
-      <div className='flex flex-col rounded-full gap-6 items-center justify-center'>
-        <h1 className='flex justify-center text-white font-mono text-5xl'>
+      <div className='flex flex-col rounded-full gap-6 items-center justify-center px-4 md:px-0'>
+        <h1 className='flex justify-center text-white font-mono text-3xl md:text-5xl text-center'>
           The Virya Group
         </h1>
-        <p className='flex justify-center text-white font-mono text-sm py-4 mx-20'>
+        <p className='flex justify-center text-white font-mono text-sm py-4 mx-4 md:mx-20 text-center'>
           The Virya Group is a collection of multi-discipline businesses offering investment and consultancy services across our focused and specialist
           fields in Gambling, iGaming, esports, Web3, Metaverse and Blockchain technology. The Group was founded by Farzad Peyman, whom, alongside
           his partners, oversee the following Virya Group sub-brands and services:
@@ -38,10 +38,10 @@ export default function ViryaPage() {
       <div className='w-full my-8'></div>
       
       {/* Container principal com largura máxima */}
-      <div className='w-full max-w-6xl mx-auto px-8'>
+      <div className='w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8'>
         {/* Título principal com span amarelo */}
         <div className='mb-12'>
-          <h1 className='text-white font-mono text-5xl'>
+          <h1 className='text-white font-mono text-3xl md:text-5xl text-center md:text-left'>
             Lorem ipsum<span className='text-yellow-400'> dolor sit </span> amet
           </h1>
         </div>
@@ -62,10 +62,10 @@ export default function ViryaPage() {
            
             
             {/* Cards de membros da equipe */}
-            <div className='flex justify-between w-full px-12 gap-4'>
+            <div className='flex flex-col md:flex-row justify-between w-full px-2 md:px-12 gap-8 md:gap-4'>
               {/* Card 1 */}
               <div className='flex flex-col items-center'>
-                <div className='rounded-2xl overflow-hidden mb-4 w-full'>
+                <div className='rounded-2xl overflow-hidden mb-4 w-full max-w-[300px]'>
                   <Image
                     src='/farzad.png'
                     alt='Farzad Peyman'
@@ -75,16 +75,16 @@ export default function ViryaPage() {
                   />
                 </div>
                 <div className='flex items-center gap-2'>
-                  <span className='text-white font-mono text-xl'>Farzad Peyman</span>
-                  <Link href="https://linkedin.com" className='px-6' target="_blank" aria-label="LinkedIn profile">
-                    <Linkedin className="text-white text-2xl" />
+                  <span className='text-white font-mono text-lg md:text-xl'>Farzad Peyman</span>
+                  <Link href="https://linkedin.com" className='px-3 md:px-6' target="_blank" aria-label="LinkedIn profile">
+                    <Linkedin className="text-white text-xl md:text-2xl" />
                   </Link>
                 </div>
               </div>
               
               {/* Card 2 */}
               <div className='flex flex-col items-center'>
-                <div className='rounded-2xl overflow-hidden mb-4 w-full'>
+                <div className='rounded-2xl overflow-hidden mb-4 w-full max-w-[300px]'>
                   <Image
                     src='/harmen.png'
                     alt='Harmen Brenninkmejer'
@@ -94,16 +94,16 @@ export default function ViryaPage() {
                   />
                 </div>
                 <div className='flex items-center gap-2'>
-                  <span className='text-white font-mono text-xl'>Harmen Brenninkmejer</span>
-                  <Link href="https://linkedin.com" className='px-6' target="_blank" aria-label="LinkedIn profile">
-                    <Linkedin className="text-white" />
+                  <span className='text-white font-mono text-lg md:text-xl'>Harmen Brenninkmejer</span>
+                  <Link href="https://linkedin.com" className='px-3 md:px-6' target="_blank" aria-label="LinkedIn profile">
+                    <Linkedin className="text-white text-xl md:text-2xl" />
                   </Link>
                 </div>
               </div>
               
               {/* Card 3 */}
               <div className='flex flex-col items-center'>
-                <div className='rounded-2xl overflow-hidden mb-4 w-full'>
+                <div className='rounded-2xl overflow-hidden mb-4 w-full max-w-[300px]'>
                   <Image
                     src='/ffinlo.png'
                     alt='Ffinlo Martin'
@@ -113,9 +113,9 @@ export default function ViryaPage() {
                   />
                 </div>
                 <div className='flex items-center gap-2'>
-                  <span className='text-white font-mono text-xl'>Ffinlo Martin</span>
-                  <Link href="https://linkedin.com" className='px-6' target="_blank" aria-label="LinkedIn profile">
-                    <Linkedin className="text-white text-2xl" />
+                  <span className='text-white font-mono text-lg md:text-xl'>Ffinlo Martin</span>
+                  <Link href="https://linkedin.com" className='px-3 md:px-6' target="_blank" aria-label="LinkedIn profile">
+                    <Linkedin className="text-white text-xl md:text-2xl" />
                   </Link>
                 </div>
               </div>
@@ -124,25 +124,25 @@ export default function ViryaPage() {
         </div>
         
         {/* Rodapé com logo e links sociais */}
-        <div className='flex justify-between items-center mt-8 py-6 border-t border-gray-800'>
+        <div className='flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0 mt-8 py-6 border-t border-gray-800'>
           {/* Logo Virya */}
-          <div className='w-48'>
+          <div className='w-auto '>
             <Image
               src='/virya.png'
               alt='Virya Group Logo'
-              width={200}
-              height={80}
+              width={220}
+              height={120}
               className='object-contain'
             />
           </div>
           
           {/* Botão Visit Website */}
-          <Link href={"#"} className="bg-white text-black hover:bg-gray-200 rounded-full px-8 py-3 text-sm font-medium">
+          <Link href={"#"} className="bg-white text-black hover:bg-gray-200 rounded-full px-8 py-3 text-sm font-medium w-auto md: text-center">
             Visit Website
           </Link>
           
           {/* Ícones sociais */}
-          <div className='flex gap-4'>
+          <div className='flex gap-4 py-4 md:py-0'>
             <Link href="#" className='bg-gray-800 p-3 rounded-md'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-white">
                 <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
