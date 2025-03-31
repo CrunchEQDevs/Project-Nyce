@@ -1,13 +1,19 @@
 'use client';
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { redirect } from "next/dist/server/api-utils";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function AppHeader() {
   // Track window width to control responsiveness
@@ -29,7 +35,7 @@ export default function AppHeader() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo section */}
         <div className="flex items-center">
-          <h1  className="text-4xl md:text-6xl font-bold">
+          <h1 className="text-4xl md:text-6xl font-bold">
             <span className="text-yellow-400">N</span>
             <span className="text-white">YCE</span>
           </h1>
@@ -38,7 +44,7 @@ export default function AppHeader() {
         {/* Center-aligned navigation for desktop - conditionally rendered */}
         {!isMobile && (
           <div className="flex items-center justify-center space-x-4 overflow-x-auto">
-            <Link href={"/"} className=" hover:bg-zinc-700 text-white rounded-full px-5 py-2 text-sm">
+            <Link href={"/"} className="hover:bg-zinc-700 text-white rounded-full px-5 py-2 text-sm">
               Home
             </Link>
             <Link href={"/products"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
@@ -50,29 +56,37 @@ export default function AppHeader() {
             <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-5 py-2 text-sm">
               Teams
             </Link>
-            {/* <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-              Stock
-            </Link> */}
             <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               Investors
             </Link>
             <Link href={"/news"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
               News
             </Link>
-            <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-              Venture studio
-            </Link>
-            <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-              NYCE House
-            </Link>
-           
+            
+            {/* Dropdown para NYCE Ventures e NYCE House */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center flex items-center">
+                NYCE Initiatives <ChevronDown className="ml-1 h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-zinc-900 border-zinc-700 text-white">
+                <DropdownMenuItem className="hover:bg-zinc-800 focus:bg-zinc-800">
+                  <Link href={"/venture"} className="w-full text-white text-sm">
+                    Venture studio
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-zinc-800 focus:bg-zinc-800">
+                  <Link href={"/nyceHouse"} className="w-full text-white text-sm">
+                    NYCE House
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )}
-
         {/* Right side with contact button (on desktop) or mobile menu toggle (on mobile) */}
         <div>
           {!isMobile ? (
-            <Link href={"/contact"} className="bg-white text-black  hover:bg-gray-700 hover:text-white rounded-full px-5 p-2 text-sm">
+            <Link href={"/contact"} className="bg-white text-black hover:bg-gray-700 hover:text-white rounded-full px-5 p-2 text-sm">
               Get in Touch
             </Link>
           ) : (
@@ -84,33 +98,30 @@ export default function AppHeader() {
               </SheetTrigger>
               <SheetContent side="left" className="bg-black w-[250px] p-0">
                 <div className="flex flex-col space-y-2 p-4">
-                  <Link href={"/"} className=" hover:bg-zinc-700 text-white rounded-full px-4 py-2 text-sm text-center">
-                Home
-              </Link>
-              <Link href={"/products"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                Marketplace
-              </Link>
-              <Link href={"/stv"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                STVs
-              </Link>
-              <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                Teams
-              </Link>
-              {/* <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                Stock
-              </Link> */}
-              <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center ">
-                Investors
-              </Link>
-              <Link href={"/news"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                News
-              </Link>
-              <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                Venture studio
-              </Link>
-              <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
-                NYCE House
-              </Link>
+                  <Link href={"/"} className="hover:bg-zinc-700 text-white rounded-full px-4 py-2 text-sm text-center">
+                    Home
+                  </Link>
+                  <Link href={"/products"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    Marketplace
+                  </Link>
+                  <Link href={"/stv"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    STVs
+                  </Link>
+                  <Link href={"/about"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    Teams
+                  </Link>
+                  <Link href={"/stock"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center ">
+                    Investors
+                  </Link>
+                  <Link href={"/news"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    News
+                  </Link>
+                  <Link href={"/venture"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    Venture studio
+                  </Link>
+                  <Link href={"/nyceHouse"} className="text-white hover:bg-zinc-800 rounded-full px-4 py-2 text-sm text-center">
+                    NYCE House
+                  </Link>
                 </div>
               </SheetContent>
             </Sheet>
