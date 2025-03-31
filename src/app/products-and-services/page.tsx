@@ -2,7 +2,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, Search, Filter, X } from 'lucide-react';
+import { ChevronDown, Search, Filter, X, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Hubot_Sans } from 'next/font/google';
+import { useSearchParams } from 'next/navigation';
 
 const hubotSans = Hubot_Sans({
   variable: "--font-hubot-sans",
@@ -22,6 +23,11 @@ const hubotSans = Hubot_Sans({
 });
 
 // Define interfaces
+interface ProductFeature {
+  id: number;
+  text: string;
+}
+
 interface Product {
   id: number;
   title: string;
@@ -29,6 +35,7 @@ interface Product {
   category: string;
   description: string;
   slug: string;
+  features: ProductFeature[];
 }
 
 interface CategoryData {
@@ -46,7 +53,7 @@ const logoMap: Record<string, string> = {
   atlas: '/atlas.png'
 };
 
-// Categories data with IDs - Mantendo consistência com os nomes na página ProductsCategories
+// Categories data with IDs
 const categoryData: CategoryData[] = [
   { id: 'all', name: 'All' },
   { id: 'igaming', name: 'iGaming & Sports Betting' },
@@ -58,16 +65,22 @@ const categoryData: CategoryData[] = [
   { id: 'analytics', name: 'Data & Analytics' }
 ];
 
-// Product card data with assigned categories
-// IMPORTANTE: Manter apenas o Turnkey na categoria Enterprise
+// Product card data with assigned categories and features
 const productCards: Product[] = [
   {
     id: 1,
     title: "Turnkey/White-label Platforms",
     logo: null,
-    category: "Enterprise", // Esta é a única que deve estar na categoria Enterprise
+    category: "Enterprise",
     description: "We represent a number of industry-leading iGaming platforms, and are able to identify the ideal solution to fit your operational needs. This makes NYCE a game-changing partner to kickstart your brand. Talk to us to discuss your requirements.",
-    slug: "turnkey-white-label-platforms"
+    slug: "turnkey-white-label-platforms",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   },
   {
     id: 2,
@@ -75,7 +88,14 @@ const productCards: Product[] = [
     logo: "summus",
     category: "iGaming & Sports Betting",
     description: "Combining Casino, betting and lottery expertise to create completely new and exciting games that bring something new to an otherwise static marketplace. As well as game content, Summus also has an aggregator with unique games - perfect for Operators looking to expand their product offering.",
-    slug: "summus"
+    slug: "summus",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   },
   {
     id: 3,
@@ -83,7 +103,14 @@ const productCards: Product[] = [
     logo: "beter",
     category: "iGaming & Sports Betting",
     description: "BETER is the industry's leading provider of next-gen betting and gaming solutions. All products are designed with the new generation of players in mind, all delivered to boost engagement, retention and operator revenue.",
-    slug: "beter"
+    slug: "beter",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   },
   {
     id: 4,
@@ -91,7 +118,14 @@ const productCards: Product[] = [
     logo: "bitblox",
     category: "Global Payment Solutions",
     description: "Bitblox creates innovative and engaging crypto-price-based games for operators that deliver an entertaining experience unlike any other to its users. Bitblox's flagship product is the Up or Down, a simple crypto game based on the live price of Bitcoin.",
-    slug: "bitblox"
+    slug: "bitblox",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   },
   {
     id: 5,
@@ -99,23 +133,44 @@ const productCards: Product[] = [
     logo: "flashbet",
     category: "Lottery",
     description: "FlashBET is a patented and unique betting technology designed for the betting and gaming industry. It offers a distinct user experience by combining accumulator betting with lottery-style betting using the innovative Bet-Wheel - making it an ideal product to engage sports bettors.",
-    slug: "flashbet"
+    slug: "flashbet",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   },
   {
     id: 6,
     title: "Astro Play",
     logo: "astroplay",
-    category: "Acquisition & Retention", // Verificado: não deve estar na categoria Enterprise
+    category: "Acquisition & Retention",
     description: "Astro Play, a leading gaming aggregator, brings years of industry expertise to enhance online casinos. With cutting-edge technology, it offers superior products, promotions, and rapid response times, valuing partners and clients equally.",
-    slug: "astroplay"
+    slug: "astroplay",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   },
   {
     id: 7,
     title: "Atlas",
     logo: "atlas",
-    category: "Data & Analytics", // Verificado: não deve estar na categoria Enterprise
+    category: "Data & Analytics",
     description: "Atlas is a data and analytics platform that provides operators with the tools they need to make informed decisions. With a focus on data visualization and predictive analytics, Atlas helps operators understand player behavior and optimize their business.",
-    slug: "atlas"
+    slug: "atlas",
+    features: [
+      { id: 1, text: "Feature 1" },
+      { id: 2, text: "Feature 2" },
+      { id: 3, text: "Feature 3" },
+      { id: 4, text: "Feature 4" },
+      { id: 5, text: "Feature 5" },
+    ]
   }
 ];
 
@@ -151,9 +206,135 @@ const itemAnimation = {
   }
 };
 
-// Component that contains all the client-side code using useSearchParams
-import { useSearchParams } from 'next/navigation';
+// Component that uses the useSearchParams hook
+interface ProductFiltersProps {
+  onCategorySelect: (categoryId: string) => void;
+  selectedCategoryIds: string[];
+  onSearchChange: (query: string) => void;
+  searchQuery: string;
+  onSortChange: (sort: string) => void;
+  selectedSort: string;
+  isMobile: boolean;
+  isFilterOpen: boolean;
+  onCloseFilter: () => void;
+}
 
+const ProductFilters: React.FC<ProductFiltersProps> = ({ 
+  onCategorySelect, 
+  selectedCategoryIds,
+  onSearchChange,
+  searchQuery,
+  onSortChange,
+  selectedSort,
+  isMobile,
+  isFilterOpen,
+  onCloseFilter
+}) => {
+  if (isMobile && !isFilterOpen) {
+    return null;
+  }
+
+  return (
+    <div className={`${isMobile ? 'fixed inset-0 z-50 bg-black bg-opacity-90 overflow-auto py-4' : 'w-[305px] shrink-0'} bg-zinc-900 rounded-lg p-6 h-fit ${!isMobile && 'sticky top-4 self-start'}`}>
+      {isMobile && (
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-medium">Filters</h2>
+          <button 
+            onClick={onCloseFilter}
+            className="p-2 rounded-full hover:bg-zinc-800"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+      )}
+      
+      {/* Search */}
+      <div className="mb-6">
+        <h3 className="text-base font-medium mb-2">Search the Marketplace</h3>
+        <div className="relative">
+          <Input 
+            className="bg-zinc-800 border-zinc-700 text-white pl-8" 
+            placeholder="Search" 
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+          />
+          <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+            <Search className="h-4 w-4 text-zinc-400" />
+          </div>
+        </div>
+      </div>
+      
+      {/* Sort by */}
+      <div className="mb-6">
+        <h3 className="text-base font-medium mb-2">Sort by</h3>
+        <Select 
+          value={selectedSort} 
+          onValueChange={onSortChange}
+          defaultValue="A-Z Descending"
+        >
+          <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white h-9">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-800 border-zinc-700 text-white">
+            <SelectItem value="A-Z Descending">A-Z Descending</SelectItem>
+            <SelectItem value="Z-A Ascending">Z-A Ascending</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      
+      {/* Category */}
+      <div className="mb-6">
+        <h3 className="text-base font-medium mb-2">Category</h3>
+        {categoryData.filter(cat => cat.id !== 'all').map((category) => (
+          <div key={category.id} className="flex items-center mb-2">
+            <Checkbox 
+              id={`category-${category.id}`}
+              checked={selectedCategoryIds.includes(category.id)}
+              onCheckedChange={() => {
+                onCategorySelect(category.id);
+              }}
+              className="border-zinc-700 h-4 w-4 data-[state=checked]:bg-zinc-500 data-[state=checked]:text-white"
+            />
+            <label 
+              htmlFor={`category-${category.id}`}
+              className="ml-2 text-sm text-zinc-300 cursor-pointer"
+            >
+              {category.name}
+            </label>
+          </div>
+        ))}
+        {/* {["Lorem Ipsum Category", "Lorem Ipsum Category", "Lorem Ipsum Category"].map((category, index) => (
+          <div key={`lorem-${index}`} className="flex items-center mb-2">
+            <Checkbox 
+              id={`category-lorem-${index}`}
+              checked={false}
+              className="border-zinc-700 h-4 w-4"
+            />
+            <label 
+              htmlFor={`category-lorem-${index}`}
+              className="ml-2 text-sm text-zinc-300 cursor-pointer"
+            >
+              {category}
+            </label>
+          </div>
+        ))} */}
+      </div>
+
+      {isMobile && (
+        <div className="mt-6">
+          <Button 
+            className="w-full bg-white text-black hover:bg-gray-200 rounded-full"
+            onClick={onCloseFilter}
+          >
+            Apply Filters
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Component that contains all the client-side code using useSearchParams
 const ProductMarketplaceContent = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedSort, setSelectedSort] = useState<string>("A-Z Descending");
@@ -179,51 +360,64 @@ const ProductMarketplaceContent = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Filtrar por parâmetro de URL no mount do componente - CORRIGIDO com debugs
-  useEffect(() => {
-    const applyCategoryFromUrl = () => {
-      const categoryFromUrl = searchParams.get('category');
-      
-      if (categoryFromUrl) {
-        const decodedCategory = decodeURIComponent(categoryFromUrl);
-        console.log("Filtrando por categoria da URL:", decodedCategory);
-        
-        // Debug - mostrando todas as categorias disponíveis nos produtos
-        const availableCategories = [...new Set(productCards.map(product => product.category))];
-        console.log("Categorias disponíveis nos produtos:", availableCategories);
-        
-        // Inicialmente, filtrar produtos pela categoria da URL - exata correspondência
-        let results = [...productCards].filter(product => {
-          const match = product.category === decodedCategory;
-          console.log(`Produto: ${product.title}, Categoria: ${product.category}, Match: ${match}`);
-          return match;
-        });
-        
-        console.log(`Produtos encontrados para categoria ${decodedCategory}:`, results.length);
-        
-        // Aplicar filtros adicionais (buscas, etc.)
-        if (searchQuery) {
-          const query = searchQuery.toLowerCase();
-          results = results.filter(product => 
-            product.title.toLowerCase().includes(query) || 
-            product.description.toLowerCase().includes(query)
-          );
-        }
-        
-        // Aplicar ordenação
-        if (selectedSort === "A-Z Descending") {
-          results.sort((a, b) => a.title.localeCompare(b.title));
-        } else if (selectedSort === "Z-A Ascending") {
-          results.sort((a, b) => b.title.localeCompare(a.title));
-        }
-        
-        setFilteredProducts(results);
-      }
-    };
+
+// Filtrar por parâmetro de URL no mount do componente
+useEffect(() => {
+  const applyCategoryFromUrl = () => {
+    const categoryFromUrl = searchParams.get('category');
     
-    applyCategoryFromUrl();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]); // Dependency apenas em searchParams para executar apenas quando a URL mudar
+    if (categoryFromUrl) {
+      const decodedCategory = decodeURIComponent(categoryFromUrl);
+      console.log("Filtrando por categoria da URL:", decodedCategory);
+      
+      // Debug - mostrando todas as categorias disponíveis nos produtos
+      const availableCategories = [...new Set(productCards.map(product => product.category))];
+      console.log("Categorias disponíveis nos produtos:", availableCategories);
+      
+      // Filtrar produtos pela categoria da URL - exata correspondência
+      let results = [...productCards].filter(product => {
+        const match = product.category === decodedCategory;
+        console.log(`Produto: ${product.title}, Categoria: ${product.category}, Match: ${match}`);
+        return match;
+      });
+      
+      console.log(`Produtos encontrados para categoria ${decodedCategory}:`, results.length);
+      
+      // Aplicar filtros adicionais (buscas, etc.)
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        results = results.filter(product => 
+          product.title.toLowerCase().includes(query) || 
+          product.description.toLowerCase().includes(query)
+        );
+      }
+      
+      // Aplicar ordenação
+      if (selectedSort === "A-Z Descending") {
+        results.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (selectedSort === "Z-A Ascending") {
+        results.sort((a, b) => b.title.localeCompare(a.title));
+      }
+      
+      setFilteredProducts(results);
+    } else {
+      // Se não houver parâmetro de categoria na URL, mostrar todos os produtos
+      let results = [...productCards];
+      
+      // Aplicar somente a ordenação padrão, pois acabamos de entrar na página
+      if (selectedSort === "A-Z Descending") {
+        results.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (selectedSort === "Z-A Ascending") {
+        results.sort((a, b) => b.title.localeCompare(a.title));
+      }
+      
+      setFilteredProducts(results);
+    }
+  };
+  
+  applyCategoryFromUrl();
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [searchParams]);
 
   // Toggle category selection
   const toggleCategory = (categoryId: string) => {
@@ -237,47 +431,50 @@ const ProductMarketplaceContent = () => {
     });
   };
 
-  // Apply filters and sorting
-  useEffect(() => {
-    // Se não houver categorias selecionadas manualmente e não houver busca, e tivermos um parâmetro na URL,
-    // não sobrescreva os resultados já filtrados pela URL
-    if (selectedCategoryIds.length === 0 && !searchQuery && searchParams.get('category')) {
-      return;
-    }
+  // Substitua o useEffect de filtragem atual por este:
+
+// Apply filters and sorting
+useEffect(() => {
+  // Se não houver categorias selecionadas manualmente e não houver busca, e tivermos um parâmetro na URL,
+  // não sobrescreva os resultados já filtrados pela URL
+  if (selectedCategoryIds.length === 0 && !searchQuery && searchParams.get('category')) {
+    return;
+  }
+  
+  let results = [...productCards];
+  
+  // Apply search filter
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    results = results.filter(product => 
+      product.title.toLowerCase().includes(query) || 
+      product.description.toLowerCase().includes(query)
+    );
+  }
+  
+  // Apply category filter only if categories are selected
+  if (selectedCategoryIds.length > 0) {
+    // Map category IDs to names for filtering
+    const selectedCategoryNames = selectedCategoryIds.map(id => {
+      const category = categoryData.find(c => c.id === id);
+      return category ? category.name : '';
+    }).filter(Boolean);
     
-    let results = [...productCards];
-    
-    // Apply search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      results = results.filter(product => 
-        product.title.toLowerCase().includes(query) || 
-        product.description.toLowerCase().includes(query)
-      );
-    }
-    
-    // Apply category filter
-    if (selectedCategoryIds.length > 0) {
-      // Map category IDs to names for filtering
-      const selectedCategoryNames = selectedCategoryIds.map(id => {
-        const category = categoryData.find(c => c.id === id);
-        return category ? category.name : '';
-      }).filter(Boolean);
-      
-      results = results.filter(product => 
-        selectedCategoryNames.includes(product.category)
-      );
-    }
-    
-    // Apply sorting
-    if (selectedSort === "A-Z Descending") {
-      results.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (selectedSort === "Z-A Ascending") {
-      results.sort((a, b) => b.title.localeCompare(a.title));
-    }
-    
-    setFilteredProducts(results);
-  }, [searchQuery, selectedSort, selectedCategoryIds, searchParams]);
+    results = results.filter(product => 
+      selectedCategoryNames.includes(product.category)
+    );
+  }
+  // Se não tiver categorias selecionadas, mantenha todos os produtos (filtrados apenas pela busca)
+  
+  // Apply sorting
+  if (selectedSort === "A-Z Descending") {
+    results.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (selectedSort === "Z-A Ascending") {
+    results.sort((a, b) => b.title.localeCompare(a.title));
+  }
+  
+  setFilteredProducts(results);
+}, [searchQuery, selectedSort, selectedCategoryIds, searchParams]);
 
   // Toggle the filter drawer for mobile
   const toggleFilter = () => {
@@ -294,134 +491,6 @@ const ProductMarketplaceContent = () => {
   const closeFilter = () => {
     setIsFilterOpen(false);
     document.body.style.overflow = 'auto';
-  };
-
-  // Component that uses the useSearchParams hook
-  interface ProductFiltersProps {
-    onCategorySelect: (categoryId: string) => void;
-    selectedCategoryIds: string[];
-    onSearchChange: (query: string) => void;
-    searchQuery: string;
-    onSortChange: (sort: string) => void;
-    selectedSort: string;
-    isMobile: boolean;
-    isFilterOpen: boolean;
-    onCloseFilter: () => void;
-  }
-
-  const ProductFilters: React.FC<ProductFiltersProps> = ({ 
-    onCategorySelect, 
-    selectedCategoryIds,
-    onSearchChange,
-    searchQuery,
-    onSortChange,
-    selectedSort,
-    isMobile,
-    isFilterOpen,
-    onCloseFilter
-  }) => {
-    if (isMobile && !isFilterOpen) {
-      return null;
-    }
-
-    return (
-      <div className={`${isMobile ? 'fixed inset-0 z-50 bg-black bg-opacity-90 overflow-auto py-4' : 'w-[305px] shrink-0'} bg-zinc-900 rounded-lg p-6 h-fit ${!isMobile && 'sticky top-4 self-start'}`}>
-        {isMobile && (
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-medium">Filters</h2>
-            <button 
-              onClick={onCloseFilter}
-              className="p-2 rounded-full hover:bg-zinc-800"
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-        )}
-        
-        {/* Search */}
-        <div className="mb-6">
-          <h3 className="text-base font-medium mb-2">Search the Marketplace</h3>
-          <div className="relative">
-            <Input 
-              className="bg-zinc-800 border-zinc-700 text-white pl-8" 
-              placeholder="Search" 
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-            />
-            <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-              <Search className="h-4 w-4 text-zinc-400" />
-            </div>
-          </div>
-        </div>
-        
-        {/* Sort by */}
-        <div className="mb-6">
-          <h3 className="text-base font-medium mb-2">Sort by</h3>
-          <Select 
-            value={selectedSort} 
-            onValueChange={onSortChange}
-            defaultValue="A-Z Descending"
-          >
-            <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white h-9">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-zinc-800 border-zinc-700 text-white">
-              <SelectItem value="A-Z Descending">A-Z Descending</SelectItem>
-              <SelectItem value="Z-A Ascending">Z-A Ascending</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        
-        {/* Category */}
-        <div className="mb-6">
-          <h3 className="text-base font-medium mb-2">Category</h3>
-          {categoryData.filter(cat => cat.id !== 'all').map((category) => (
-            <div key={category.id} className="flex items-center mb-2">
-              <Checkbox 
-                id={`category-${category.id}`}
-                checked={selectedCategoryIds.includes(category.id)}
-                onCheckedChange={(checked) => {
-                  onCategorySelect(category.id);
-                }}
-                className="border-zinc-700 h-4 w-4 data-[state=checked]:bg-zinc-500 data-[state=checked]:text-white"
-              />
-              <label 
-                htmlFor={`category-${category.id}`}
-                className="ml-2 text-sm text-zinc-300 cursor-pointer"
-              >
-                {category.name}
-              </label>
-            </div>
-          ))}
-          {["Lorem Ipsum Category", "Lorem Ipsum Category", "Lorem Ipsum Category"].map((category, index) => (
-            <div key={`lorem-${index}`} className="flex items-center mb-2">
-              <Checkbox 
-                id={`category-lorem-${index}`}
-                checked={false}
-                className="border-zinc-700 h-4 w-4"
-              />
-              <label 
-                htmlFor={`category-lorem-${index}`}
-                className="ml-2 text-sm text-zinc-300 cursor-pointer"
-              >
-                {category}
-              </label>
-            </div>
-          ))}
-        </div>
-
-        {isMobile && (
-          <div className="mt-6">
-            <Button 
-              className="w-full bg-white text-black hover:bg-gray-200 rounded-full"
-              onClick={onCloseFilter}
-            >
-              Apply Filters
-            </Button>
-          </div>
-        )}
-      </div>
-    );
   };
 
   return (
@@ -508,79 +577,111 @@ const ProductMarketplaceContent = () => {
             </motion.div>
           )}
           
-          {/* Products Grid */}
-          <motion.div 
-            className="flex-1"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="space-y-4">
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((product) => (
-                  <motion.div 
-                    key={product.id} 
-                    className="border border-zinc-700 rounded-lg overflow-hidden"
-                    variants={itemAnimation}
-                    whileHover={{ 
-                      y: -1,
-                      boxShadow: "0 8px 15px rgba(0, 0, 0, 0.2)" 
-                    }}
-                  >
-                    <div className="p-4 md:p-6">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
-                        <div className="w-full md:w-[200px] h-[60px] flex items-center justify-center md:justify-start">
-                          {product.logo && logoMap[product.logo] ? (
-                            <Image
-                              src={logoMap[product.logo]}
-                              alt={`${product.title} logo`}
-                              width={180}
-                              height={50}
-                              style={{ objectFit: 'contain' }}
-                              unoptimized
-                            />
-                          ) : (
-                            <span className="text-yellow-400 text-lg font-medium px-2 py-1 rounded">{product.title}</span>
-                          )}
-                        </div>
-                        <motion.div
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
-                          className="w-full md:w-auto"
-                        >
-                          <Button 
-                            variant="outline" 
-                            className="bg-white text-black hover:bg-gray-200 rounded-full w-full md:w-auto"
-                            asChild
-                          >
-                            <Link href={`/partners/${product.slug}`}>
-                              Visit Website
-                            </Link>
-                          </Button>
-                        </motion.div>
-                      </div>
-                      <p className="text-zinc-300 text-sm md:text-base">{product.description}</p>
-                      
-                      {/* Mobile-only category badge */}
-                      {isMobile && (
-                        <div className="mt-3">
-                          <span className="inline-block bg-zinc-800 text-xs text-zinc-300 px-2 py-1 rounded-full">
-                            {product.category}
-                          </span>
-                        </div>
-                      )}
-                    </div> 
-                  </motion.div>
-                ))
-              ) : (
-                <div className="flex items-center justify-center p-8 bg-zinc-900 rounded-lg">
-                  <p className="text-zinc-400 text-lg">No products match your search. Please try again.</p>
+        {/* Products Grid */}
+<motion.div 
+  className="flex-1"
+  variants={staggerContainer}
+  initial="hidden"
+  animate="visible"
+>
+  <div className="space-y-6 ">
+    {filteredProducts.length > 0 ? (
+      filteredProducts.map((product) => (
+        <motion.div 
+          key={product.id} 
+          className="group relative  border-transparent hover:border-yellow-400 transition-all duration-300 py-2"
+          whileHover={{ scale: 1.02 }}
+          variants={itemAnimation}
+          data-testid={`product-card-${product.id}`}
+        >
+          {/* Card base */}
+          <div className="border-2 border-zinc-700 space-y-2 group-hover:border-yellow-400 transition-all duration-300 rounded-lg overflow-hidden bg-zinc-900">
+            <div className="p-8">
+              {/* Logo and category always visible */}
+              <div className="flex justify-between items-center mb-4">
+                <div className="h-[60px] flex items-center">
+                  {product.logo && logoMap[product.logo] ? (
+                    <Image
+                      src={logoMap[product.logo]}
+                      alt={`${product.title} logo`}
+                      width={180}
+                      height={50}
+                      style={{ objectFit: 'contain' }}
+                      unoptimized
+                    />
+                  ) : (
+                    <span className="text-yellow-400 text-lg font-medium">{product.title}</span>
+                  )}
                 </div>
-              )}
+                <div>
+                  <span className="inline-block bg-zinc-800 text-xs text-zinc-300 px-2 py-1 rounded-full">
+                    {product.category}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Description - always visible */}
+              <div className="mb-2">
+                <p className="text-zinc-300 text-base">
+                  {product.description}
+                </p>
+              </div>
+              
+              {/* Features - expandable part */}
+              <div className="h-0 opacity-0 invisible group-hover:h-auto group-hover:opacity-100 group-hover:visible overflow-hidden transition-all duration-300 ease-in-out">
+                <div className="border-t border-zinc-700 mt-6 pt-6">
+                  <h3 className="text-yellow-400 font-medium mb-4">Features</h3>
+                  
+                  <div className="grid grid-cols-3 gap-y-4">
+                    {product.features.map(feature => (
+                      <div key={feature.id} className="flex space-y-2 items-center">
+                        <div className="rounded-full bg-yellow-400 p-1 mr-2 flex items-center justify-center">
+                          <Check className="h-4 w-4 text-black" />
+                        </div>
+                        <span className="text-white text-sm">{feature.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-6 flex justify-end">
+                    <Button
+                      variant="outline" 
+                      className="bg-zinc-800 hover:bg-zinc-700 text-white hover:text-white rounded-md px-8 py-2"
+                      asChild
+                    >
+                      <Link href={`/partners/${product.slug}`}>
+                        Learn More
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
+      ))
+    ) : (
+      <div className="flex items-center justify-center p-8 bg-zinc-900 rounded-lg">
+        <p className="text-zinc-400 text-lg">No products match your search. Please try again.</p>
+      </div>
+    )}
+  </div>
+</motion.div>
         </div>
       </motion.div>
+
+      {/* Mobile filter button */}
+      {isMobile && (
+        <div className="fixed bottom-0 left-0 right-0 bg-black p-4 border-t border-zinc-700 flex justify-between items-center">
+          <Button 
+            variant="outline" 
+            className="bg-zinc-800 hover:bg-zinc-700 text-white hover:text-white border-zinc-700 rounded-full px-4"
+            onClick={toggleFilter}
+          >
+            <Filter className="h-4 w-4 mr-1" /> Filter
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

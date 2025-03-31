@@ -4,9 +4,10 @@ import { useRouter } from 'next/navigation';
 
 export default function ProductsCategories() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState(null);
   
   const categories = [
+    { id: 0, name: 'All Products' }, // Adicionando opção "All Products"
     { id: 1, name: 'iGaming & Sports Betting' },
     { id: 2, name: 'Land-Based Casinos' },
     { id: 3, name: 'Acquisition & Retention' },
@@ -15,13 +16,19 @@ export default function ProductsCategories() {
     { id: 6, name: 'Enterprise' },
     { id: 7, name: 'Data & Analytics' }
   ];
-  
+
   const handleCategoryClick = (category:any) => {
     setSelectedCategory(category.id);
-    // Navigation to products-and-services (this matches your folder structure)
-    router.push(`/products-and-services?category=${encodeURIComponent(category.name)}`);
+    
+    // Se for a categoria "All Products", não adicione o parâmetro category na URL
+    if (category.id === 0) {
+      router.push('/products-and-services');
+    } else {
+      // Caso contrário, adicione o parâmetro category normalmente
+      router.push(`/products-and-services?category=${encodeURIComponent(category.name)}`);
+    }
   };
-  
+
   return (
     <div className="min-h-screen bg-black text-white">
       <main className="container mx-auto px-4 py-8">

@@ -152,10 +152,10 @@ export default function Contact() {
               name="agreeToTerms"
               checked={formData.agreeToTerms}
               onChange={handleChange}
-              className="w-5 h-5 sm:w-6 sm:h-6 mt-0.5 bg-zinc-900 border-none accent-yellow-400 focus:ring-0"
+              className="w-5 h-5 sm:w-6 sm:h-6 mt-0.5 bg-zinc-900 border-none accent-blue-400 focus:ring-0"
               required
             />
-            <label htmlFor="terms" className="text-zinc-400 font-mono text-xs sm:text-sm flex items-center">
+            <label htmlFor="terms" className="text-zinc-300 font-mono text-xs sm:text-sm flex items-center">
               I have read and agree to the terms and conditions
             </label>
           </div>

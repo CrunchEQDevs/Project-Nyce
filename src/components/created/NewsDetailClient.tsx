@@ -32,14 +32,7 @@ const fragmentMono = Fragment_Mono({
   variable: "--font-fragment-mono",
   subsets: ["latin"],
 });
-export async function generateStaticParams() {
-  // Importamos uma função que retorne todos os slugs de notícias
-  const allNews = getAllNews();
-  
-  return allNews.map((news) => ({
-    newsInfo: news.slug,
-  }));
-}
+
 export default function NewsDetailClient({ newsSlug }: { newsSlug: string }) {
     // Não precisa mais de useParams
     const [newsItem, setNewsItem] = useState<NewsItem | null>(null);
